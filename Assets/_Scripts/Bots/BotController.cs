@@ -18,16 +18,18 @@ namespace _Scripts.Bots
 
         private BotMovement _movement;
         private Animator _animator;
+        private BotStats _stats;
 
         [SerializeField] private float searchRadius = 10;
         [SerializeField] private float chaseRadius = 5;
         [SerializeField] private float attackRadius = 1;
-        [SerializeField] private LayerMask _mask;
+        [SerializeField] private LayerMask mask;
 
         public int isIdlingHash;
         public int isWalkingHash;
         public int isRunningHash;
         public int isAttackingHash;
+        public int isDyingHash;
 
         // Start is called before the first frame update
         void Start()
@@ -39,6 +41,9 @@ namespace _Scripts.Bots
             isWalkingHash = Animator.StringToHash("walking");
             isRunningHash = Animator.StringToHash("running");
             isAttackingHash = Animator.StringToHash("attacking");
+            isDyingHash = Animator.StringToHash("dying");
+
+            _stats = new BotStats(2, 2);
         }
 
         // Update is called once per frame
@@ -74,7 +79,14 @@ namespace _Scripts.Bots
                     break;
                 case BotMode.Die:
                     Debug.Log("Bot is in die mode");
+                    _animator.SetTrigger(isDyingHash);
                     break;
+            }
+
+            if (Input.GetKeyDown(KeyCode.K))
+            {
+                TakeDamage(20);
+                Debug.Log(_stats.CurrentHealth);
             }
         }
 
@@ -85,13 +97,13 @@ namespace _Scripts.Bots
             var pos = transform.position;
 
             // Check if enemy in search range
-            if (Physics.CheckSphere(pos, searchRadius, _mask))
+            if (Physics.CheckSphere(pos, searchRadius, mask))
             {
                 _mode = BotMode.SearchEnemy;
             }
 
             // Check if enemy in chase range (and in field of view)
-            Collider[] colliders = Physics.OverlapSphere(pos, chaseRadius, _mask);
+            Collider[] colliders = Physics.OverlapSphere(pos, chaseRadius, mask);
             if (colliders.Length > 0)
             {
                 foreach (var col in colliders)
@@ -111,15 +123,18 @@ namespace _Scripts.Bots
             }
 
             // Check if enemy in attack range
-            if (Physics.CheckSphere(pos, attackRadius, _mask))
+            if (Physics.CheckSphere(pos, attackRadius, mask))
             {
                 _mode = BotMode.AttackEnemy;
             }
 
             // Check if Bot is dead
-            //...
+            if (_stats.CurrentHealth <= 0)
+            {
+                _mode = BotMode.Die;
+            }
         }
-
+ 
         private void OnDrawGizmos()
         {
             var pos = transform.position;
@@ -132,6 +147,11 @@ namespace _Scripts.Bots
 
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(pos, attackRadius);
+        }
+
+        private void TakeDamage(int dmg)
+        {
+            _stats.TakeDamage(2);
         }
     }
 }

@@ -10,8 +10,6 @@
 
 
 ### Bots
-- [ ] **Animation - Selbst entwerfen oder herunterladen**
-  - [ ] **Die**  -
 - [ ] **AnimationsController**
 - [ ] **BotController**
 - [ ] **BotMovement**
@@ -42,7 +40,7 @@
   - [ ] Idle
   - [ ] Walk
   - [ ] Attack
-- [ ] AnimationsController
+- [ ] AnimationsController (optional)
 - [ ] PlayerController
 - [ ] PlayerMovement
 - [ ] Buildmechanik
@@ -53,12 +51,12 @@
 ### Bots
 - [x] Grafikmodell
   - [x] Selbst entwerfen oder herunterladen
-- [ ] Animation - Selbst entwerfen oder herunterladen
+- [x] Animation - Selbst entwerfen oder herunterladen
   - [x] Idle
   - [x] Walk
   - [x] Run
   - [x] Attack
-  - [ ] Die
+  - [x] Die
 - [ ] Bot AI
   - [ ] Verhaltensbäume??
 - [ ] AnimationsController
