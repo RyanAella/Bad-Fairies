@@ -1,6 +1,15 @@
 ﻿# Changelog
 
 
+## [0.3.0] - 2022-11-03
+### Added
+- Player
+  - Movement
+    - Walk
+  - Camera-Movement
+
+
+
 ## [0.2.0] - 2022-11-02
 ### Added
 - Bot-Prefab

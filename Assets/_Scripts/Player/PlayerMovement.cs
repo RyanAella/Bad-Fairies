@@ -1,53 +1,53 @@
-using System.Collections;
-using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+namespace _Scripts.Player
 {
-    public float xSensitivity;
-    public float ySensitivity;
-
-    public Transform playerRotation;
-
-    private float _xCamRotation;
-    private float _yCamRotation;
-    
-    // Start is called before the first frame update
-    void Start()
+    public class PlayerMovement : MonoBehaviour
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        // mouse input
-        var mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * xSensitivity;
-        var mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * ySensitivity;
-
-        _xCamRotation += mouseX;
-        _xCamRotation -= mouseY;
+        [SerializeField] private float playerSpeed = 5.0f;
+        [SerializeField] public float camSensitivity = 5.0f;
+        [SerializeField] public float camSmoothing = 2.0f;
         
-        // if (_animator != null)
-        // {
-        //     if (Input.GetKeyDown(KeyCode.L))
-        //     {
-        //         _animator.SetTrigger("isWalking");
-        //     }
-        //     else
-        //     {
-        //         isWalking = false;
-        //     }
-        //
-        //     if (Input.GetKeyDown(KeyCode.R) && isRunning == false)
-        //     {
-        //         _animator.SetTrigger("isRunning");
-        //     }
-        //     else if (Input.GetKeyDown(KeyCode.R) && isRunning == true)
-        //     {
-        //         _animator.SetTrigger(isRunning);
-        //     }
-        // }
+        private CharacterController controller;
+        private Vector3 playerVelocity;
+        
+        private bool groundedPlayer;
+        
+        private float jumpHeight = 1.0f;
+        private float gravityValue = -9.81f;
+
+        void Start()
+        {
+            controller = gameObject.AddComponent<CharacterController>();
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+
+        void Update()
+        {
+            groundedPlayer = controller.isGrounded;
+            if (groundedPlayer && playerVelocity.y < 0)
+            {
+                playerVelocity.y = 0f;
+            }
+
+            Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+            controller.Move(move * (Time.deltaTime * playerSpeed));
+
+            // if (move != Vector3.zero)
+            // {
+            //     gameObject.transform.forward = move;
+            // }
+
+            // Changes the height position of the player..
+            if (Input.GetButtonDown("Jump") && groundedPlayer)
+            {
+                playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
+            }
+
+            playerVelocity.y += gravityValue * Time.deltaTime;
+            controller.Move(playerVelocity * Time.deltaTime);
+        }
     }
 }

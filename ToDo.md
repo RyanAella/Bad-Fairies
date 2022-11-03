@@ -1,20 +1,19 @@
 ﻿# **ToDo Next**
 
 ### PlayerCharacter
-- [ ] Grafikmodell (optional)
-- [ ] Animation (optional wenn Grafikmodell)
-  - [ ] Idle
-  - [ ] Walk
-  - [ ] Attack
-- [ ] AnimationsController
+- [ ] PlayerMovement
+  - [ ] Run
 
 
 ### Bots
 - [ ] **AnimationsController**
+  - [ ] Wechsel zwischen verschiedenen Angriffs-Animationen
 - [ ] **BotController**
 - [ ] **BotMovement**
-- - [ ] Bot AI
-- [ ] Behaviour Tree??
+  - [ ] Angriff in Zielrichtung
+- [ ] Bot AI
+  - [ ] Behaviour Tree??
+
 
 ### Level
 - [ ] **Designen**
@@ -41,8 +40,11 @@
   - [ ] Walk
   - [ ] Attack
 - [ ] AnimationsController (optional)
-- [ ] PlayerController
+- [x] PlayerController
+  - [x] Camera
 - [ ] PlayerMovement
+  - [x] Walk
+  - [ ] Run
 - [ ] Buildmechanik
   - [ ] Gebäude/Bauteile Prefabs
 - [ ] GebäudeController
@@ -60,8 +62,10 @@
 - [ ] Bot AI
   - [ ] Verhaltensbäume??
 - [ ] AnimationsController
+  - [ ] Wechsel zwischen verschiedenen Angriffs-Animationen
 - [ ] BotController
 - [ ] BotMovement
+  - [ ] Angriff in Zielrichtung
 
 
 ### Level

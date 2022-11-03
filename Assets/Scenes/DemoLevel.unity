@@ -473,7 +473,7 @@ GameObject:
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: fp_camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -668,7 +668,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1633350522}
-  m_LocalRotation: {x: -0, y: -0.7606982, z: -0, w: 0.6491058}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 11.84, y: 1, z: 9.05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -677,7 +677,7 @@ Transform:
   - {fileID: 17537351}
   m_Father: {fileID: 0}
   m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: -99.052, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1633350524
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -690,9 +690,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d088d568919b9f4a81b1691e449144d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xSensitivity: 0
-  ySensitivity: 0
-  playerRotation: {fileID: 0}
+  playerSpeed: 2
+  camSensitivity: 5
+  camSmoothing: 2
+  camera: {fileID: 0}
+  mouseSensitivity: 500
 --- !u!95 &1633350525
 Animator:
   serializedVersion: 4
