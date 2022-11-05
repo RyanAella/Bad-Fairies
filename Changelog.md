@@ -1,6 +1,18 @@
 ﻿# Changelog
 
 
+## [0.5.0] - 2022-11-05
+### Added
+- Player
+  - Movement
+    - Jump
+    - Run
+  - Attacking
+### Changed
+- Player can move in camera direction
+- Bot turns in direction of player
+
+
 ## [0.4.0] - 2022-11-04
 ### Added
 - Started building Level

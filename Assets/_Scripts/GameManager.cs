@@ -17,13 +17,7 @@ namespace _Scripts
             {
                 gameManager = this;
             }
-        
-        }
 
-        // Update is called once per frame
-        void Update()
-        {
-        
         }
     }
 }

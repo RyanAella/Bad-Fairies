@@ -5,49 +5,63 @@ namespace _Scripts.Player
 {
     public class PlayerMovement : MonoBehaviour
     {
-        [SerializeField] private float playerSpeed = 5.0f;
-        [SerializeField] public float camSensitivity = 5.0f;
-        [SerializeField] public float camSmoothing = 2.0f;
+        [SerializeField] private float walkingSpeed = 12f;
+        [SerializeField] private float runningSpeed = 24f;
+        // [SerializeField] public float camSensitivity = 5.0f;
+        // [SerializeField] public float camSmoothing = 2.0f;
+
+        public Transform groundCheck;
+        public float groundDistance = 0.5f;
+        public LayerMask groundMask;
         
-        private CharacterController controller;
-        private Vector3 playerVelocity;
+        private CharacterController _controller;
+        private Vector3 _playerVelocity;
+
+        private bool _isGrounded;
         
-        private bool groundedPlayer;
-        
-        private float jumpHeight = 1.0f;
-        private float gravityValue = -9.81f;
+        private float _jumpHeight = 3f;
+        private float _gravityValue = -9.81f;
+        private float currentSpeed;
 
         void Start()
         {
-            controller = gameObject.AddComponent<CharacterController>();
+            _controller = gameObject.AddComponent<CharacterController>();
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
 
         void Update()
         {
-            groundedPlayer = controller.isGrounded;
-            if (groundedPlayer && playerVelocity.y < 0)
+        
+            _isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+            
+            if (_isGrounded && _playerVelocity.y < 0)
             {
-                playerVelocity.y = 0f;
+                _playerVelocity.y = -2f;
             }
+            
+            float x = Input.GetAxis("Horizontal");
+            float z = Input.GetAxis("Vertical");
+            Vector3 move = transform.right * x + transform.forward * z;
 
-            Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-            controller.Move(move * (Time.deltaTime * playerSpeed));
-
-            // if (move != Vector3.zero)
-            // {
-            //     gameObject.transform.forward = move;
-            // }
-
+            if (_isGrounded && Input.GetKey(KeyCode.LeftShift))
+            {
+                currentSpeed = runningSpeed;
+            }
+            else
+            {
+                currentSpeed = walkingSpeed;
+            }
+            _controller.Move(move * currentSpeed * Time.deltaTime);
+            
             // Changes the height position of the player..
-            if (Input.GetButtonDown("Jump") && groundedPlayer)
+            if (Input.GetButtonDown("Jump") && _isGrounded)
             {
-                playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
+                _playerVelocity.y += Mathf.Sqrt(_jumpHeight * -2f * _gravityValue);
             }
 
-            playerVelocity.y += gravityValue * Time.deltaTime;
-            controller.Move(playerVelocity * Time.deltaTime);
+            _playerVelocity.y += _gravityValue * Time.deltaTime;
+            _controller.Move(_playerVelocity * Time.deltaTime);
         }
     }
 }

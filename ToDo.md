@@ -1,9 +1,5 @@
 ﻿# **ToDo Next**
 
-### PlayerCharacter
-- [ ] PlayerMovement
-  - [ ] Run
-
 
 ### Bots
 - [ ] **AnimationsController**
@@ -44,7 +40,8 @@
   - [x] Camera
 - [ ] PlayerMovement
   - [x] Walk
-  - [ ] Run
+  - [x] Run
+  - [x] Jump
 - [ ] Buildmechanik
   - [ ] Gebäude/Bauteile Prefabs
 - [ ] GebäudeController

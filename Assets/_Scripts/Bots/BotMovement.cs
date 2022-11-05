@@ -6,20 +6,11 @@ namespace _Scripts.Bots
 {
     public class BotMovement
     {
-        private GameObject _bot;
+        public bool destinationReached = false;
         
         private NavMeshAgent _agent;
-
-        // private Animator _animator;
-
-        // // dirty
-        // public Transform pos1;
-        // public Transform pos2;
-
-        // public bool isWalking = false;
-        // public bool isRunning = false;
-
-        // private Vector3 _destination;
+        private GameObject _bot;
+        private float _stopMargin = 0.1f;
 
         // Start is called before the first frame update
         public BotMovement(GameObject bot)
@@ -29,18 +20,25 @@ namespace _Scripts.Bots
             _agent = _bot.GetComponent<NavMeshAgent>();
             _agent.updateRotation = true;
 
-
-            // _destination = pos1.position;
-            // _agent.SetDestination(_destination);
-            // _animator = GetComponent<Animator>();
+            _agent.stoppingDistance = _bot.GetComponent<BotController>().attackRadius - _stopMargin;
         }
 
-        private void Move(Vector3 destination)
+        public void Move(Vector3 destination)
         {
             // var botPos2D = new Vector2(_bot.transform.position.x, _bot.transform.position.z);
             // var destination2D = new Vector2(destination.x, destination.z);
-
+        
             _agent.SetDestination(destination);
+            if (destination == _bot.transform.position)
+            {
+                DestinationReached();
+            }
+        }
+
+        public bool DestinationReached()
+        {
+            destinationReached = true;
+            return destinationReached;
         }
     }
 }

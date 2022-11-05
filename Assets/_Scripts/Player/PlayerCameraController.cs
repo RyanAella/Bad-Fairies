@@ -8,7 +8,7 @@ namespace _Scripts.Player
         // the first person camera
         public GameObject camera;
         public float mouseSensitivity = 100f;
-        private float xRotation = 0f;
+        private float xRotation;
         
         void Start()
         {

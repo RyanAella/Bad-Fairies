@@ -6,10 +6,12 @@
         {
         }
 
-        public PlayerStats(int health, int maxHealth)
+        public PlayerStats(int health, int maxHealth, int damage, int armor)
         {
             CurrentHealth = health;
             MaxHealth = maxHealth;
+            Damage = damage;
+            Armor = armor;
         }
     }
 }
