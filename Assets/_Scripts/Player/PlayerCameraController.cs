@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace _Scripts.Player
 {
@@ -12,7 +11,6 @@ namespace _Scripts.Player
         
         void Start()
         {
-            
             camera = transform.Find("fp_camera").gameObject;
         }
 

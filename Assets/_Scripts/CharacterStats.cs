@@ -1,4 +1,6 @@
-﻿namespace _Scripts
+﻿using UnityEngine;
+
+namespace _Scripts
 {
     public class CharacterStats
     {
@@ -26,6 +28,7 @@
 
         public void TakeDamage(int dmgAmount)
         {
+            Debug.Log("Take " + dmgAmount + " damage.");
             if (CurrentHealth > 0)
             {
                 CurrentHealth -= dmgAmount;

@@ -1,6 +1,12 @@
 ﻿# Changelog
 
 
+## [0.6.0] - 2022-11-06
+### Changed
+- Bot-Prefab gets destroyed after death animation
+- Bot moves to player destination if old destination is not reached or if it gets a new destination
+
+
 ## [0.5.0] - 2022-11-05
 ### Added
 - Player

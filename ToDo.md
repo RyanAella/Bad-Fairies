@@ -4,9 +4,6 @@
 ### Bots
 - [ ] **AnimationsController**
   - [ ] Wechsel zwischen verschiedenen Angriffs-Animationen
-- [ ] **BotController**
-- [ ] **BotMovement**
-  - [ ] Angriff in Zielrichtung
 - [ ] Bot AI
   - [ ] Behaviour Tree??
 
@@ -38,7 +35,7 @@
 - [ ] AnimationsController (optional)
 - [x] PlayerController
   - [x] Camera
-- [ ] PlayerMovement
+- [x] PlayerMovement
   - [x] Walk
   - [x] Run
   - [x] Jump
@@ -60,9 +57,9 @@
   - [ ] Verhaltensbäume??
 - [ ] AnimationsController
   - [ ] Wechsel zwischen verschiedenen Angriffs-Animationen
-- [ ] BotController
-- [ ] BotMovement
-  - [ ] Angriff in Zielrichtung
+- [x] BotController
+- [x] BotMovement
+  - [x] Angriff in Zielrichtung
 
 
 ### Level

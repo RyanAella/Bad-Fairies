@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace _Scripts.Player
@@ -25,7 +24,7 @@ namespace _Scripts.Player
 
         void Start()
         {
-            _controller = gameObject.AddComponent<CharacterController>();
+            _controller = gameObject.GetComponent<CharacterController>();
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
