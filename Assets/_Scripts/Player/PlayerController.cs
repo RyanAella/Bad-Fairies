@@ -3,7 +3,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    
     private PlayerStats _stats;
+    
 
     private void Start()
     {
@@ -13,6 +15,5 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
 }

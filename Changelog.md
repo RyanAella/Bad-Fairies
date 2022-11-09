@@ -1,6 +1,21 @@
 ﻿# Changelog
 
 
+## [0.7.0] - 2022-11-08
+### Added
+- Buildable Indicators and Prefabs
+  - Wall
+  - Ramp
+  - Stairs
+- Grid
+- Buildables snap on grid
+
+
+## [0.6.1] - 2022-11-07
+### Changed
+- Bot started walking when current location != destination
+
+
 ## [0.6.0] - 2022-11-06
 ### Changed
 - Bot-Prefab gets destroyed after death animation

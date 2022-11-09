@@ -69,7 +69,9 @@ namespace _Scripts.Bots
         {
             UpdateBotMode();
 
-            // _animator.SetBool(_isAttackingHash, false);
+            _animator.SetBool(_isAttackingHash, false);
+
+            _destination = transform.position;
 
             switch (_mode)
             {
@@ -99,9 +101,10 @@ namespace _Scripts.Bots
         private void UpdateBotMode()
         {
             var pos = transform.position;
+            // _animator.SetBool(_isAttackingHash, false);
             
             _mode = BotMode.Default;
-            Debug.Log(DestinationReached());
+            // Debug.Log(DestinationReached());
             
             // Check if Bot is dead
             if (_stats.CurrentHealth <= 0)
@@ -116,7 +119,7 @@ namespace _Scripts.Bots
                 _mode = BotMode.AttackEnemy;
                 return;
             }
-            
+
             // Check if enemy in chase range (and in field of view)
             Collider[] colliders = Physics.OverlapSphere(pos, chaseRadius, mask);
             if (colliders.Length > 0)
@@ -130,7 +133,7 @@ namespace _Scripts.Bots
 
                         if (angleToPlayer is >= -60 and <= 60) // 120° FOV 
                         {
-                            Debug.Log("Player in sight!");
+                            // Debug.Log("Player in sight!");
                             _mode = BotMode.ChaseEnemy;
                             return;
                         }
@@ -172,7 +175,7 @@ namespace _Scripts.Bots
          */
         private void Idling()
         {
-            Debug.Log("Bot is in default mode");
+            // Debug.Log("Bot is in default mode");
             _animator.SetTrigger(_isIdlingHash);
             // _animator.SetBool(isAttackingHash, false);
         }
@@ -180,16 +183,31 @@ namespace _Scripts.Bots
         private void Search()
         {
             var pos = transform.position;
-            Debug.Log("Bot is in search mode");
-            _animator.SetTrigger(_isWalkingHash);
-
-            if (Physics.CheckSphere(pos, searchRadius, mask))
+            if (_destination == transform.position)
             {
-                Move(_target.position);
-            } else if (DestinationReached())
-            {
-                Move(_target.position);
+                
             }
+            else
+            {
+                // Debug.Log("Bot is in search mode");
+               _animator.SetTrigger(_isWalkingHash);
+               
+                           if (Physics.CheckSphere(pos, searchRadius, mask))
+                           {
+                               Move(_target.position);
+                           } else if (!DestinationReached() && Physics.CheckSphere(pos, searchRadius, mask))
+                           {
+                               Move(_target.position);
+                           } else if (DestinationReached() && Physics.CheckSphere(pos, searchRadius, mask))
+                           {
+                               Move(_target.position);
+                           }
+                           else
+                           {
+                               _destination = transform.position;
+                           } 
+            }
+            
 
             // if the old destination has been reached move to a new destination because player is in range
             // if () Move(_target.position);            // only set new destination if the old one has been reached
@@ -197,21 +215,21 @@ namespace _Scripts.Bots
 
         private void Chase()
         {
-            Debug.Log("Bot is in chase mode");
+            // Debug.Log("Bot is in chase mode");
             _animator.SetTrigger(_isRunningHash);
             Move(_target.position);
         }
 
         private void Attack()
         {
-            Debug.Log("Bot is in attack mode");
+            // Debug.Log("Bot is in attack mode");
             _animator.SetBool(_isAttackingHash, true);
             FaceTarget();
         }
         
         private void Die()
         {
-            Debug.Log("Bot is in die mode");
+            // Debug.Log("Bot is in die mode");
             if (!_animator.GetCurrentAnimatorStateInfo(0).IsName("Dying"))
             {
                 _animator.SetTrigger(_isDyingHash);

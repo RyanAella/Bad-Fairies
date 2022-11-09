@@ -443,7 +443,7 @@ AnimatorStateMachine:
     m_Position: {x: 730, y: 430, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 6794549427602877150}
-    m_Position: {x: 1000, y: 530, z: 0}
+    m_Position: {x: 1010, y: 530, z: 0}
   m_ChildStateMachines:
   - serializedVersion: 1
     m_StateMachine: {fileID: -5318131501275177427}
@@ -727,12 +727,11 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Dying_on_Jolleen_inPlace
+  m_Name: Dying
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
-  m_StateMachineBehaviours:
-  - {fileID: -8887511362385761798}
+  m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
