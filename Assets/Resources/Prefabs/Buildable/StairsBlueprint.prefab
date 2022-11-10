@@ -47,7 +47,7 @@ GameObject:
   - component: {fileID: 6583447979900517569}
   - component: {fileID: 5744203658970153498}
   m_Layer: 0
-  m_Name: StairsIndicator
+  m_Name: StairsBlueprint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1047,7 +1047,7 @@ MeshCollider:
   m_GameObject: {fileID: 7873759161644070122}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30

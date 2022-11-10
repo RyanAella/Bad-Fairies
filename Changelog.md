@@ -1,6 +1,17 @@
 ﻿# Changelog
 
 
+## [0.8.0] - 2022-11-10
+### Changed
+- Level Design
+- BotMovement
+  - minor Bugfixes
+- Building
+  - Before building the final Buildable, transparent blueprints are visible
+  - Rotation with mouse wheel (90°)
+  - Blueprint tries to move with mouse (not working right quite yet)
+
+
 ## [0.7.0] - 2022-11-08
 ### Added
 - Buildable Indicators and Prefabs

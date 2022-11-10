@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 1810770431503321100}
   - component: {fileID: 1810770431503321090}
   - component: {fileID: 1810770431503321091}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -173,7 +173,7 @@ GameObject:
   - component: {fileID: 1810770431912442943}
   - component: {fileID: 1810770431912442936}
   - component: {fileID: 1810770431912442937}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: fp_camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -187,8 +187,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1810770431912442938}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.55, z: 0.099}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.0000007003546, y: 1.55, z: 0.34899902}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -257,7 +257,7 @@ GameObject:
   - component: {fileID: 1810770433033788678}
   - component: {fileID: 1810770433033788699}
   - component: {fileID: 1810770433033788676}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: eyes
   m_TagString: Untagged
   m_Icon: {fileID: 0}

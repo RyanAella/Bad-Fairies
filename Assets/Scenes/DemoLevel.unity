@@ -1043,10 +1043,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 382bacb38a23ec64db356d49ad434027, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildMenu: {fileID: 0}
-  wallIndicatorPrefab: {fileID: 5328356942344436988, guid: ac1f058307b2979409ac133040415075, type: 3}
-  stairsIndicatorPrefab: {fileID: 7873759161644070122, guid: 8c024c7b3dbc761428651e208595904e, type: 3}
-  rampIndicatorPrefab: {fileID: 9202340458161156185, guid: 6758a5aa87a067247b9d886099a7de4e, type: 3}
+  buildablePrefabs:
+  - {fileID: 5328356942344436988, guid: ac1f058307b2979409ac133040415075, type: 3}
+  - {fileID: 7873759161644070122, guid: 8c024c7b3dbc761428651e208595904e, type: 3}
+  - {fileID: 9202340458161156185, guid: 6758a5aa87a067247b9d886099a7de4e, type: 3}
 --- !u!1 &1832480094
 GameObject:
   m_ObjectHideFlags: 0

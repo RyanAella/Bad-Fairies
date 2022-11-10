@@ -18,7 +18,8 @@ namespace _Scripts
 
         public Vector3 getNearestPointOnGrid(Vector3 position)
         {
-            position -= transform.position;
+            var pos = transform.position;
+            position -= pos;
 
             var xCount = Mathf.RoundToInt(position.x / gridSize);
             var yCount = Mathf.RoundToInt(position.y / gridSize);
@@ -26,24 +27,24 @@ namespace _Scripts
 
             var result = new Vector3((float)xCount * gridSize, (float)yCount * gridSize, (float)zCount * gridSize);
 
-            result += transform.position;
+            result += pos;
 
             return result;
         }
         
-        private void OnDrawGizmos()
-        {
-            Gizmos.color = Color.green;
-
-            for (float x = _borderLeft; x < _borderRight + gridSize; x += gridSize)
-            {
-                for (float z = _borderBottom; z < _borderTop + gridSize; z += gridSize)
-                {
-                    var point = getNearestPointOnGrid(new Vector3(x, 0f, z));
-                    Gizmos.DrawSphere(point, 0.1f);
-                }
-            }
-        }
+        // private void OnDrawGizmos()
+        // {
+        //     Gizmos.color = Color.green;
+        //
+        //     for (float x = _borderLeft; x < _borderRight + gridSize; x += gridSize)
+        //     {
+        //         for (float z = _borderBottom; z < _borderTop + gridSize; z += gridSize)
+        //         {
+        //             var point = getNearestPointOnGrid(new Vector3(x, 0f, z));
+        //             Gizmos.DrawSphere(point, 0.1f);
+        //         }
+        //     }
+        // }
     
         private void CalculateBorders()
         {
