@@ -1,6 +1,21 @@
 ﻿# Changelog
 
 
+## [0.9.0] - 2022-11-11
+### Added
+- Crosshair
+- Buildable Indicators (Containers) and Prefabs (Frames)
+  - Floor
+
+### Changed
+- Walls, ramps and floor connect together
+- Buildables not moving to mouse anymore
+ 
+### Removed
+- Rotation of Buildables
+- Buildables snap to grid
+
+
 ## [0.8.0] - 2022-11-10
 ### Changed
 - Level Design

@@ -140,7 +140,6 @@ namespace _Scripts.Bots
             // Check if enemy in search range
             if (Physics.CheckSphere(pos, searchRadius, mask) || !DestinationReached())
             {
-                Debug.Log("searchRadius");
                 _mode = BotMode.SearchEnemy;
             }
         }
@@ -173,7 +172,7 @@ namespace _Scripts.Bots
          */
         private void Idling()
         {
-            Debug.Log("Bot is in default mode");
+            // Debug.Log("Bot is in default mode");
             _animator.SetTrigger(_isIdlingHash);
             // _animator.SetBool(isAttackingHash, false);
         }
@@ -184,7 +183,7 @@ namespace _Scripts.Bots
             
             var pos = transform.position;
     
-            Debug.Log("Bot is in search mode");
+            // Debug.Log("Bot is in search mode");
             
             if (Physics.CheckSphere(pos, searchRadius, mask))
             {
@@ -207,21 +206,21 @@ namespace _Scripts.Bots
 
         private void Chase()
         {
-            Debug.Log("Bot is in chase mode");
+            // Debug.Log("Bot is in chase mode");
             _animator.SetTrigger(_isRunningHash);
             Move(_target.position);
         }
 
         private void Attack()
         {
-            Debug.Log("Bot is in attack mode");
+            // Debug.Log("Bot is in attack mode");
             _animator.SetBool(_isAttackingHash, true);
             FaceTarget();
         }
 
         private void Die()
         {
-            Debug.Log("Bot is in die mode");
+            // Debug.Log("Bot is in die mode");
             if (!_animator.GetCurrentAnimatorStateInfo(0).IsName("Dying"))
             {
                 _animator.SetTrigger(_isDyingHash);

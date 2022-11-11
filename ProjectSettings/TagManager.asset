@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Bot
+  - Environment
+  - Frame
+  - Buildable
   layers:
   - Default
   - TransparentFX
@@ -15,7 +18,7 @@ TagManager:
   - Enemy
   - Player
   - Ground
-  - 
+  - IgnoreCollision
   - 
   - 
   - 

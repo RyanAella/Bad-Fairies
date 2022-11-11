@@ -25,24 +25,25 @@ namespace _Scripts.Player
         void Start()
         {
             _controller = gameObject.GetComponent<CharacterController>();
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
         }
 
         void Update()
         {
-        
-            _isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+
+            _isGrounded = _controller.isGrounded; //Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+            _controller.slopeLimit = 50;
             
+            // 
             if (_isGrounded && _playerVelocity.y < 0)
             {
                 _playerVelocity.y = -2f;
             }
             
-            float x = Input.GetAxis("Horizontal");
-            float z = Input.GetAxis("Vertical");
-            Vector3 move = transform.right * x + transform.forward * z;
+            float xAxis = Input.GetAxis("Horizontal");
+            float zAxis = Input.GetAxis("Vertical");
+            Vector3 move = transform.right * xAxis + transform.forward * zAxis;
 
+            // Player is grounded and left shift is pressed
             if (_isGrounded && Input.GetKey(KeyCode.LeftShift))
             {
                 currentSpeed = runningSpeed;
@@ -53,7 +54,7 @@ namespace _Scripts.Player
             }
             _controller.Move(move * currentSpeed * Time.deltaTime);
             
-            // Changes the height position of the player..
+            // Changes the height position of the player
             if (Input.GetButtonDown("Jump") && _isGrounded)
             {
                 _playerVelocity.y += Mathf.Sqrt(_jumpHeight * -2f * _gravityValue);
