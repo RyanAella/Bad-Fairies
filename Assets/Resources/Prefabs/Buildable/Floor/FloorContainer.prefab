@@ -110,8 +110,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff6fbc1e0bc9ae24c8576cd84b2f85ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mat1: {fileID: 2100000, guid: b517cca68d5f7174c94d6e0d5156e84f, type: 2}
-  mat2: {fileID: 2100000, guid: 34241ffcd6c74fe4e87ffebbf9fa6081, type: 2}
+  frame: {fileID: 2100000, guid: b517cca68d5f7174c94d6e0d5156e84f, type: 2}
+  cutout: {fileID: 2100000, guid: 34241ffcd6c74fe4e87ffebbf9fa6081, type: 2}
   tracked: 0
   bc: {fileID: 6634383372479238904}
 --- !u!1 &2142434527144497406
@@ -127,6 +127,7 @@ GameObject:
   - component: {fileID: 2142434527144497155}
   - component: {fileID: 2142434527144497404}
   - component: {fileID: 6634383372479238904}
+  - component: {fileID: 416418716926275471}
   m_Layer: 0
   m_Name: Floor
   m_TagString: Buildable
@@ -141,7 +142,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2142434527144497406}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 5, y: 0.1, z: 5}
   m_ConstrainProportionsScale: 0
@@ -150,6 +151,7 @@ Transform:
   - {fileID: 6720631166593307610}
   - {fileID: 8928725774805303343}
   - {fileID: 4539085982844280328}
+  - {fileID: 6895796039486989391}
   m_Father: {fileID: 4131961232279148001}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -225,7 +227,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2142434527144497406}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a86ff4e8fcb893448ac714654358aad5, type: 3}
+  m_Script: {fileID: 11500000, guid: 6e536e93faadb63418790e0eede57a8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   modus: 0
@@ -241,6 +243,53 @@ MonoBehaviour:
   frameWall2: {fileID: 7452062931803570973}
   frameWall3: {fileID: 3400594683528518397}
   frameWall4: {fileID: 1689098866083679619}
+--- !u!54 &416418716926275471
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2142434527144497406}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
+--- !u!1 &2448138526425098144
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6895796039486989391}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6895796039486989391
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2448138526425098144}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2142434527144497405}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3400594683528518397
 GameObject:
   m_ObjectHideFlags: 0
@@ -351,8 +400,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff6fbc1e0bc9ae24c8576cd84b2f85ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mat1: {fileID: 2100000, guid: b517cca68d5f7174c94d6e0d5156e84f, type: 2}
-  mat2: {fileID: 2100000, guid: 34241ffcd6c74fe4e87ffebbf9fa6081, type: 2}
+  frame: {fileID: 2100000, guid: b517cca68d5f7174c94d6e0d5156e84f, type: 2}
+  cutout: {fileID: 2100000, guid: 34241ffcd6c74fe4e87ffebbf9fa6081, type: 2}
   tracked: 0
   bc: {fileID: 6634383372479238904}
 --- !u!1 &3597312943561497910
@@ -465,8 +514,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff6fbc1e0bc9ae24c8576cd84b2f85ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mat1: {fileID: 2100000, guid: b517cca68d5f7174c94d6e0d5156e84f, type: 2}
-  mat2: {fileID: 2100000, guid: 34241ffcd6c74fe4e87ffebbf9fa6081, type: 2}
+  frame: {fileID: 2100000, guid: b517cca68d5f7174c94d6e0d5156e84f, type: 2}
+  cutout: {fileID: 2100000, guid: 34241ffcd6c74fe4e87ffebbf9fa6081, type: 2}
   tracked: 0
   bc: {fileID: 6634383372479238904}
 --- !u!1 &4131961231701416828
@@ -579,8 +628,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff6fbc1e0bc9ae24c8576cd84b2f85ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mat1: {fileID: 2100000, guid: b517cca68d5f7174c94d6e0d5156e84f, type: 2}
-  mat2: {fileID: 2100000, guid: 34241ffcd6c74fe4e87ffebbf9fa6081, type: 2}
+  frame: {fileID: 2100000, guid: b517cca68d5f7174c94d6e0d5156e84f, type: 2}
+  cutout: {fileID: 2100000, guid: 34241ffcd6c74fe4e87ffebbf9fa6081, type: 2}
   tracked: 0
   bc: {fileID: 6634383372479238904}
 --- !u!1 &4131961232138514848
@@ -693,8 +742,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff6fbc1e0bc9ae24c8576cd84b2f85ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mat1: {fileID: 2100000, guid: b517cca68d5f7174c94d6e0d5156e84f, type: 2}
-  mat2: {fileID: 2100000, guid: 34241ffcd6c74fe4e87ffebbf9fa6081, type: 2}
+  frame: {fileID: 2100000, guid: b517cca68d5f7174c94d6e0d5156e84f, type: 2}
+  cutout: {fileID: 2100000, guid: 34241ffcd6c74fe4e87ffebbf9fa6081, type: 2}
   tracked: 0
   bc: {fileID: 6634383372479238904}
 --- !u!1 &4131961232279148000
@@ -847,8 +896,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff6fbc1e0bc9ae24c8576cd84b2f85ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mat1: {fileID: 2100000, guid: b517cca68d5f7174c94d6e0d5156e84f, type: 2}
-  mat2: {fileID: 2100000, guid: 34241ffcd6c74fe4e87ffebbf9fa6081, type: 2}
+  frame: {fileID: 2100000, guid: b517cca68d5f7174c94d6e0d5156e84f, type: 2}
+  cutout: {fileID: 2100000, guid: 34241ffcd6c74fe4e87ffebbf9fa6081, type: 2}
   tracked: 0
   bc: {fileID: 6634383372479238904}
 --- !u!1 &4131961232496618947
@@ -961,8 +1010,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff6fbc1e0bc9ae24c8576cd84b2f85ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mat1: {fileID: 2100000, guid: b517cca68d5f7174c94d6e0d5156e84f, type: 2}
-  mat2: {fileID: 2100000, guid: 34241ffcd6c74fe4e87ffebbf9fa6081, type: 2}
+  frame: {fileID: 2100000, guid: b517cca68d5f7174c94d6e0d5156e84f, type: 2}
+  cutout: {fileID: 2100000, guid: 34241ffcd6c74fe4e87ffebbf9fa6081, type: 2}
   tracked: 0
   bc: {fileID: 6634383372479238904}
 --- !u!1 &4539085982844280331
@@ -1075,8 +1124,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff6fbc1e0bc9ae24c8576cd84b2f85ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mat1: {fileID: 2100000, guid: b517cca68d5f7174c94d6e0d5156e84f, type: 2}
-  mat2: {fileID: 2100000, guid: 34241ffcd6c74fe4e87ffebbf9fa6081, type: 2}
+  frame: {fileID: 2100000, guid: b517cca68d5f7174c94d6e0d5156e84f, type: 2}
+  cutout: {fileID: 2100000, guid: 34241ffcd6c74fe4e87ffebbf9fa6081, type: 2}
   tracked: 0
   bc: {fileID: 6634383372479238904}
 --- !u!1 &6720631166593307609
@@ -1189,8 +1238,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff6fbc1e0bc9ae24c8576cd84b2f85ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mat1: {fileID: 2100000, guid: b517cca68d5f7174c94d6e0d5156e84f, type: 2}
-  mat2: {fileID: 2100000, guid: 34241ffcd6c74fe4e87ffebbf9fa6081, type: 2}
+  frame: {fileID: 2100000, guid: b517cca68d5f7174c94d6e0d5156e84f, type: 2}
+  cutout: {fileID: 2100000, guid: 34241ffcd6c74fe4e87ffebbf9fa6081, type: 2}
   tracked: 0
   bc: {fileID: 6634383372479238904}
 --- !u!1 &7452062931803570973
@@ -1303,8 +1352,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff6fbc1e0bc9ae24c8576cd84b2f85ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mat1: {fileID: 2100000, guid: b517cca68d5f7174c94d6e0d5156e84f, type: 2}
-  mat2: {fileID: 2100000, guid: 34241ffcd6c74fe4e87ffebbf9fa6081, type: 2}
+  frame: {fileID: 2100000, guid: b517cca68d5f7174c94d6e0d5156e84f, type: 2}
+  cutout: {fileID: 2100000, guid: 34241ffcd6c74fe4e87ffebbf9fa6081, type: 2}
   tracked: 0
   bc: {fileID: 6634383372479238904}
 --- !u!1 &7854979123718013783
@@ -1417,8 +1466,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff6fbc1e0bc9ae24c8576cd84b2f85ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mat1: {fileID: 2100000, guid: b517cca68d5f7174c94d6e0d5156e84f, type: 2}
-  mat2: {fileID: 2100000, guid: 34241ffcd6c74fe4e87ffebbf9fa6081, type: 2}
+  frame: {fileID: 2100000, guid: b517cca68d5f7174c94d6e0d5156e84f, type: 2}
+  cutout: {fileID: 2100000, guid: 34241ffcd6c74fe4e87ffebbf9fa6081, type: 2}
   tracked: 0
   bc: {fileID: 6634383372479238904}
 --- !u!1 &8928725774805303340
@@ -1531,7 +1580,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff6fbc1e0bc9ae24c8576cd84b2f85ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mat1: {fileID: 2100000, guid: b517cca68d5f7174c94d6e0d5156e84f, type: 2}
-  mat2: {fileID: 2100000, guid: 34241ffcd6c74fe4e87ffebbf9fa6081, type: 2}
+  frame: {fileID: 2100000, guid: b517cca68d5f7174c94d6e0d5156e84f, type: 2}
+  cutout: {fileID: 2100000, guid: 34241ffcd6c74fe4e87ffebbf9fa6081, type: 2}
   tracked: 0
   bc: {fileID: 6634383372479238904}

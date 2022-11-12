@@ -8,6 +8,7 @@ TagManager:
   - Environment
   - Frame
   - Buildable
+  - Ground
   layers:
   - Default
   - TransparentFX

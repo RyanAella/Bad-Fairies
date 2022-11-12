@@ -1,34 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
-using _Scripts.Buildings;
 using UnityEngine;
 
-public class Frame : MonoBehaviour
+namespace _Scripts.Buildings
 {
-    public Material mat1;   // sichtbar
-    public Material mat2;   // unsichtbar
-
-    public bool tracked;
-
-    public BuildableController bc;
-    
-    void Start()
+    public class Frame : MonoBehaviour
     {
-        
-    }
+        public Material frame;   // visible
+        public Material cutout;   // invisible
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (tracked)
-        {
-            this.GetComponent<Renderer>().material = mat1;
-        }
-        else
-        {
-            this.GetComponent<Renderer>().material = mat2;
-        }
+        public bool tracked;
 
-        tracked = false;
+        public Buildable bc;
+
+        // Update is called once per frame
+        void Update()
+        {
+            if (tracked)
+            {
+                this.GetComponent<Renderer>().material = frame;
+            }
+            else
+            {
+                this.GetComponent<Renderer>().material = cutout;
+            }
+
+            tracked = false;
+        }
     }
 }

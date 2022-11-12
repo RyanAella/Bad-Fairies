@@ -1,6 +1,6 @@
 ﻿namespace _Scripts.Bots
 {
-    public class BotStats : CharacterStats
+    public class BotStats : Stats
     {
         protected BotStats()
         {

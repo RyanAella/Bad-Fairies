@@ -815,7 +815,7 @@ GameObject:
   - component: {fileID: 824903880}
   m_Layer: 0
   m_Name: Terrain
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -1876,7 +1876,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1810770433119101488, guid: 87a30c7d83c1fdc47b2f44057ec82426, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 134.75
+      value: 137.21
       objectReference: {fileID: 0}
     - target: {fileID: 1810770433119101488, guid: 87a30c7d83c1fdc47b2f44057ec82426, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1884,7 +1884,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1810770433119101488, guid: 87a30c7d83c1fdc47b2f44057ec82426, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 102.91
+      value: 103.38
       objectReference: {fileID: 0}
     - target: {fileID: 1810770433119101488, guid: 87a30c7d83c1fdc47b2f44057ec82426, type: 3}
       propertyPath: m_LocalRotation.w

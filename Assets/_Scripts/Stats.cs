@@ -2,14 +2,14 @@
 
 namespace _Scripts
 {
-    public class CharacterStats
+    public class Stats
     {
         protected internal int CurrentHealth { get; protected set; }
         protected int MaxHealth { get; set; }
         protected int Damage { get; set; }
         protected int Armor { get; set; }
 
-        protected CharacterStats()
+        protected Stats()
         {
             // initialize to 0
             CurrentHealth = 0;
@@ -18,7 +18,13 @@ namespace _Scripts
             Armor = 0;
         }
 
-        public CharacterStats(int health, int maxHealth, int damage, int armor)
+        public Stats(int health, int maxHealth)
+        {
+            CurrentHealth = health;
+            MaxHealth = maxHealth;
+        }
+
+        public Stats(int health, int maxHealth, int damage, int armor)
         {
             CurrentHealth = health;
             MaxHealth = maxHealth;

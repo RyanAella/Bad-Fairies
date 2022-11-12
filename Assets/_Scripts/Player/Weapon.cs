@@ -24,7 +24,6 @@ namespace _Scripts.Player
             RaycastHit hit;
             if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
             {
-                Debug.Log(hit.transform.name);
 
                 var enemy = hit.transform.GetComponent<BotController>();
                 if (enemy != null)

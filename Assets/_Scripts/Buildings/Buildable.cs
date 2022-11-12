@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace _Scripts.Buildings
 {
-    public class BuildableController : MonoBehaviour
+    public class Buildable : MonoBehaviour
     {
         public int modus = 0;
         public GameObject frameFloor1;
@@ -18,15 +18,16 @@ namespace _Scripts.Buildings
         public GameObject frameWall2;
         public GameObject frameWall3;
         public GameObject frameWall4;
-        
-        private void Start()
-        {
-        }
+        // public GameObject frameWall5;
+        // public GameObject frameWall6;
+        // public GameObject frameWall7;
+        // public GameObject frameWall8;
 
         private void Update()
         {
             switch (modus)
             {
+                // Floor building mode
                 case 0:
                     frameFloor1.SetActive(true);
                     frameFloor2.SetActive(true);
@@ -40,7 +41,12 @@ namespace _Scripts.Buildings
                     frameWall2.SetActive(false);
                     frameWall3.SetActive(false);
                     frameWall4.SetActive(false);
+                    // frameWall5.SetActive(false);
+                    // frameWall6.SetActive(false);
+                    // frameWall7.SetActive(false);
+                    // frameWall8.SetActive(false);
                     break;
+                // Ramp building mode
                 case 1:
                     frameFloor1.SetActive(false);
                     frameFloor2.SetActive(false);
@@ -54,7 +60,12 @@ namespace _Scripts.Buildings
                     frameWall2.SetActive(false);
                     frameWall3.SetActive(false);
                     frameWall4.SetActive(false);
+                    // frameWall5.SetActive(false);
+                    // frameWall6.SetActive(false);
+                    // frameWall7.SetActive(false);
+                    // frameWall8.SetActive(false);
                     break;
+                // Wall building mode
                 case 2:
                     frameFloor1.SetActive(false);
                     frameFloor2.SetActive(false);
@@ -68,7 +79,19 @@ namespace _Scripts.Buildings
                     frameWall2.SetActive(true);
                     frameWall3.SetActive(true);
                     frameWall4.SetActive(true);
+                    // frameWall5.SetActive(true);
+                    // frameWall6.SetActive(true);
+                    // frameWall7.SetActive(true);
+                    // frameWall8.SetActive(true);
                     break;
+            }
+        }
+
+        public void OnCollisionEnter(Collision collision)
+        {
+            if (collision.gameObject.CompareTag("Ground"))
+            {
+                this.transform.parent.transform.parent = null;          // The container is needed...
             }
         }
     }

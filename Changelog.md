@@ -1,6 +1,16 @@
 ﻿# Changelog
 
 
+## [0.10.0] - 2022-11-12
+### Added
+- Buildables are children if they are connected
+- Buildables have healthpoints
+
+### Changed
+- Bugfixes
+  - wrong rotation and position if buildable was set alone
+
+
 ## [0.9.0] - 2022-11-11
 ### Added
 - Crosshair

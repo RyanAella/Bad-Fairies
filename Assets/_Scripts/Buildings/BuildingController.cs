@@ -11,6 +11,8 @@ namespace _Scripts.Buildings
         // [SerializeField] private LayerMask layerMask;
         [SerializeField] private int buildingDistance = 15;
 
+        private BuildingStats _stats;
+
         private RaycastHit _hit;
         private Ray _ray;
 
@@ -24,9 +26,11 @@ namespace _Scripts.Buildings
         private Vector3 _frameVector;
 
         private bool _vectorSet;
+
         private float _mouseWheelRotation;
-        private int _currentFrameIndex = -1;
-        private int _currentBuildableIndex = -1;
+
+        // private int _currentFrameIndex = -1;
+        // private int _currentBuildableIndex = -1;
         private int modus = 0;
 
         // public GameObject obstacle;
@@ -37,6 +41,11 @@ namespace _Scripts.Buildings
         public GameObject floorFrame;
         public GameObject rampFrame;
         public GameObject wallFrame;
+
+        private void Start()
+        {
+            _stats = new BuildingStats(10, 10);
+        }
 
         private void Update()
         {
@@ -80,7 +89,7 @@ namespace _Scripts.Buildings
 
                 if (_hit.distance < buildingDistance && _hit.collider.gameObject.CompareTag("Buildable"))
                 {
-                    _hit.collider.gameObject.GetComponent<BuildableController>().modus = modus;
+                    _hit.collider.gameObject.GetComponent<Buildable>().modus = modus;
                     Destroy(_frameContainer);
                     _vectorSet = false;
                 }
@@ -93,29 +102,50 @@ namespace _Scripts.Buildings
                     else if (_hit.collider.gameObject.CompareTag("Frame"))
                     {
                         GameObject container;
-                        container = Instantiate(_buildable,
-                            _hit.collider.gameObject.transform.position,
-                            _hit.collider.gameObject.transform.rotation);
+                        if (modus == 2)
+                        {
+                            container = Instantiate(_buildable,
+                                _hit.collider.gameObject.transform.position,
+                                _hit.collider.gameObject.transform.rotation);
+                            if (!_hit.collider.gameObject.transform.parent.gameObject.name.Equals("Wall"))
+                            {
+                                container.transform.Rotate(0, 90, 0);  
+                            }
+                        }
+                        else
+                        {
+                            container = Instantiate(_buildable,
+                                _hit.collider.gameObject.transform.position,
+                                _hit.collider.gameObject.transform.rotation);
+                        }
+
+                        container.transform.SetParent(_hit.collider.gameObject.transform.parent);
                     }
+                    // neither "buildable" nor "frame"
                     else
                     {
-                        if (modus == 1)
+                        if (modus == 0)
+                        {
+                            var instance = Instantiate(_buildable, _hit.point, transform.rotation);
+                        }
+                        // ramp
+                        else if (modus == 1)
                         {
                             var instance = Instantiate(_buildable, _hit.point, transform.rotation);
                             instance.transform.Rotate(0, 90, -45);
                             instance.transform.Translate(-2.5f, 0, 0);
                         }
+                        // wall
                         else if (modus == 2)
                         {
                             var instance = Instantiate(_buildable, _hit.point, transform.rotation);
-                            instance.transform.Rotate(90, 0, 0);
-                            instance.transform.Translate(0, 0, -2.5f);
+                            instance.transform.Rotate(-90, 0, 0);
+                            instance.transform.Translate(0, 0, 2.5f);
                         }
                         else
                         {
-                            Instantiate(_buildable, _hit.point, transform.rotation); 
+                            Instantiate(_buildable, _hit.point, transform.rotation);
                         }
-                        
                     }
                 }
 
@@ -134,8 +164,8 @@ namespace _Scripts.Buildings
          * If a buildable already has been selected, it gets destroyed
         */
         private void ChooseBuildable()
-        { 
-            if (Input.GetKey(KeyCode.Alpha1))
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 Debug.Log("1 pressed");
                 modus = 0;
@@ -144,6 +174,7 @@ namespace _Scripts.Buildings
                 Destroy(_frameContainer);
                 _vectorSet = false;
             }
+
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
                 Debug.Log("2 pressed");
@@ -153,6 +184,7 @@ namespace _Scripts.Buildings
                 Destroy(_frameContainer);
                 _vectorSet = false;
             }
+
             if (Input.GetKeyDown(KeyCode.Alpha3))
             {
                 Debug.Log("3 pressed");
@@ -162,7 +194,6 @@ namespace _Scripts.Buildings
                 Destroy(_frameContainer);
                 _vectorSet = false;
             }
-            
         }
 
         // private bool PressedKeyOfCurrentPrefab(int i)

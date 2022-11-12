@@ -1,19 +1,4 @@
-﻿# **ToDo Next**
-
-
-### Bots
-- [ ] **AnimationsController**
-  - [ ] Wechsel zwischen verschiedenen Angriffs-Animationen
-- [ ] Bot AI
-  - [ ] Behaviour Tree??
-
-
-### Level
-- [ ] **Designen**
-
-
-
-# **ToDo**
+﻿# **ToDo**
 
 
 ### Grundlagen
@@ -21,9 +6,9 @@
 
 
 ### GamePlay
-- [ ] SpawnLocation
-- [ ] PeacefulMode
-- [ ] FightMode
+- [ ] **SpawnLocation**
+- [ ] **PeacefulMode**
+- [ ] **FightMode**
 
 
 ### PlayerCharacter
@@ -35,13 +20,14 @@
 - [ ] AnimationsController (optional)
 - [x] PlayerController
   - [x] Camera
+  - [ ] **Die Mode**
 - [x] PlayerMovement
   - [x] Walk
   - [x] Run
   - [x] Jump
-- [ ] Buildmechanik
-  - [ ] Gebäude/Bauteile Prefabs
-- [ ] GebäudeController
+- [ ] **Buildmechanik**
+  - [ ] **Bauteile Prefabs**
+- [ ] **GebäudeController**
 
 
 ### Bots
@@ -55,14 +41,15 @@
   - [x] Die
 - [ ] Bot AI
   - [ ] Verhaltensbäume??
-- [ ] AnimationsController
-  - [ ] Wechsel zwischen verschiedenen Angriffs-Animationen
+- [ ] **AnimationsController**
+  - [ ] **Wechsel zwischen verschiedenen Angriffs-Animationen**
 - [x] BotController
 - [x] BotMovement
   - [x] Angriff in Zielrichtung
 
 
 ### Level
-- [ ] **Designen**
-- [ ] Bauen
-- [ ] NavMesh baken
+- [x] **Designen**
+- [ ] **Bauen**
+- [ ] **NavMesh baken**
+- [ ] **Ground needs the Tag Ground so that the components that lie on the ground are handled properly when they are destroyed.**

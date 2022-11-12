@@ -1,6 +1,6 @@
 ﻿namespace _Scripts.Player
 {
-    public class PlayerStats : CharacterStats
+    public class PlayerStats : Stats
     {
         protected PlayerStats()
         {
