@@ -11,6 +11,15 @@
 - [ ] **FightMode**
 
 
+### Buildmechanik
+- [ ] Bauteile Prefabs 
+- [x] BuildingController
+- [x] Life Points
+- [x] Destruction
+- [ ] Snap to Grid
+- [ ] Rot, wenn Bauplatz belegt ist
+
+
 ### PlayerCharacter
 - [ ] Grafikmodell (optional)
 - [ ] Animation (optional wenn Grafikmodell)
@@ -20,14 +29,15 @@
 - [ ] AnimationsController (optional)
 - [x] PlayerController
   - [x] Camera
-  - [ ] **Die Mode**
+  - [ ] Die Mode
+  - [ ] Make Damage
+    - [ ] Bots
+    - [x] Buildables
+  - [ ] Take Damage
 - [x] PlayerMovement
   - [x] Walk
   - [x] Run
   - [x] Jump
-- [ ] **Buildmechanik**
-  - [ ] **Bauteile Prefabs**
-- [ ] **GebäudeController**
 
 
 ### Bots
@@ -39,6 +49,7 @@
   - [x] Run
   - [x] Attack
   - [x] Die
+  - [ ] Hit
 - [ ] Bot AI
   - [ ] Verhaltensbäume??
 - [ ] **AnimationsController**

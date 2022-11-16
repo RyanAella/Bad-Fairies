@@ -1,7 +1,6 @@
-using System;
 using UnityEngine;
 
-namespace _Scripts
+namespace _Scripts.Player
 {
     public class PlayerManager : MonoBehaviour
     {

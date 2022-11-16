@@ -1,6 +1,22 @@
 ﻿# Changelog
 
 
+## [0.12.0] - 2022-11-16
+### Added
+- UI
+  - Shows Key to enter/exit Build Mode
+  - Shows current selected buildable
+  - Shows current player life
+- Player
+  - 3 different modes: Default, Build, Die
+  - Default: Walk, Run, Jump, Shoot
+  - Build: Walk, Jump, Build
+- Buildings
+  - Select and deselect Buildables
+- Player Weapon
+  - Can destroy Buildables
+
+
 ## [0.11.0] - 2022-11-15
 ### Added
 - Main Menu

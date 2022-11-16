@@ -615,7 +615,7 @@ GameObject:
   - component: {fileID: 2142434527144497404}
   - component: {fileID: 6634383372479238904}
   - component: {fileID: 5480644066036608930}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Wall
   m_TagString: Buildable
   m_Icon: {fileID: 0}
@@ -721,7 +721,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e536e93faadb63418790e0eede57a8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  modus: 0
+  mode: 0
   frameFloor1: {fileID: 9033814849727978708}
   frameFloor2: {fileID: 3331808661137449598}
   frameFloor3: {fileID: 2422277650967690431}
@@ -1101,7 +1101,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4131961232279148001}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: WallContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}

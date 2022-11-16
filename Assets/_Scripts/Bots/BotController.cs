@@ -1,4 +1,4 @@
-using System;
+using _Scripts.Player;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -182,15 +182,16 @@ namespace _Scripts.Bots
         private void Search()
         {
             _animator.SetTrigger(_isWalkingHash);
-            
+
             var pos = transform.position;
-    
+
             // Debug.Log("Bot is in search mode");
-            
+
             if (Physics.CheckSphere(pos, searchRadius, mask))
             {
                 Move(_target.position);
             }
+
             if (_destination != transform.position /* && Physics.CheckSphere(pos, searchRadius, mask)*/)
             {
                 Move(_target.position);

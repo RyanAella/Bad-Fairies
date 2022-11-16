@@ -128,7 +128,7 @@ GameObject:
   - component: {fileID: 2142434527144497404}
   - component: {fileID: 6634383372479238904}
   - component: {fileID: 416418716926275471}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Floor
   m_TagString: Buildable
   m_Icon: {fileID: 0}
@@ -230,7 +230,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e536e93faadb63418790e0eede57a8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  modus: 0
+  mode: 0
   frameFloor1: {fileID: 3597312943561497910}
   frameFloor2: {fileID: 6720631166593307609}
   frameFloor3: {fileID: 8928725774805303340}
@@ -755,7 +755,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4131961232279148001}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: FloorContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}

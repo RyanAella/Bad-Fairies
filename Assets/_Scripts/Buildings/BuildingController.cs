@@ -1,4 +1,4 @@
-using TMPro;
+using _Scripts.Player;
 using UnityEngine;
 
 namespace _Scripts.Buildings
@@ -6,8 +6,6 @@ namespace _Scripts.Buildings
     public class BuildingController : MonoBehaviour
     {
         [SerializeField] private int buildingDistance = 15;
-
-        private BuildingStats _stats;
 
         private RaycastHit _hit;
         private Ray _ray;
@@ -22,11 +20,9 @@ namespace _Scripts.Buildings
         private Vector3 _frameVector;
 
         private bool _vectorSet;
+        public bool buildingSelected = false;
 
         private float _mouseWheelRotation;
-
-        // private int _currentFrameIndex = -1;
-        // private int _currentBuildableIndex = -1;
 
         public GameObject floor;
         public GameObject ramp;
@@ -34,125 +30,129 @@ namespace _Scripts.Buildings
         public GameObject floorFrame;
         public GameObject rampFrame;
         public GameObject wallFrame;
-        
-        public int modus = 0;
 
-        private void Start()
-        {
-            _stats = new BuildingStats(10, 10);
-        }
+        public int mode;
 
         private void Update()
         {
-            ChooseBuildable();
-
-            _ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-
-            if (Physics.Raycast(_ray, out _hit))
+            if (gameObject.GetComponent<PlayerController>().GetCurrentPlayerMode() == 1)
             {
-                // zu weit weg
-                if (_hit.distance > buildingDistance)
-                {
-                    Destroy(_frameContainer);
-                    _vectorSet = false;
-                }
+                ChooseBuildable();
 
-                // wenn frameVector nicht da wo wir hinschauen, aber der vector schonmal gesetzt wurde u gerüstcontainer existiert
-                if (_frameVector != _hit.point && _vectorSet)
-                {
-                    _frameContainer.transform.position = _hit.point;
-                    _frameContainer.transform.rotation = transform.rotation;
-                }
+                _ray = Camera.main!.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
 
-                if (_hit.distance < buildingDistance && !_vectorSet)
+                if (Physics.Raycast(_ray, out _hit))
                 {
-                    _frameContainer =
-                        Instantiate(_frame, _hit.point, transform.rotation); // buildablePrefab[_currentPrefabIndex]
-                    _frameVector = _hit.point;
-                    _vectorSet = true;
-                }
-
-                if (_hit.distance < buildingDistance && _hit.collider.gameObject.CompareTag("Frame"))
-                {
-                    _hit.collider.gameObject.GetComponent<Frame>().tracked = true;
-                    _hit.collider.gameObject.GetComponent<Frame>().bc.modus = modus;
-                    // _hit.collider.gameObject.transform.parent.gameObject.GetComponent<BuildableController>().modus =
-                    //     modus;
-                    Destroy(_frameContainer);
-                    _vectorSet = false;
-                }
-
-                if (_hit.distance < buildingDistance && _hit.collider.gameObject.CompareTag("Buildable"))
-                {
-                    _hit.collider.gameObject.GetComponent<Buildable>().modus = modus;
-                    Destroy(_frameContainer);
-                    _vectorSet = false;
-                }
-
-                if (Input.GetButtonDown("Fire1") && _hit.distance < buildingDistance)
-                {
-                    if (_hit.collider.gameObject.CompareTag("Buildable"))
+                    // zu weit weg
+                    if (_hit.distance > buildingDistance)
                     {
+                        Destroy(_frameContainer);
+                        _vectorSet = false;
                     }
-                    else if (_hit.collider.gameObject.CompareTag("Frame"))
+
+                    // wenn frameVector nicht da wo wir hinschauen, aber der vector schonmal gesetzt wurde u gerüstcontainer existiert
+                    if (_frameVector != _hit.point && _vectorSet)
                     {
-                        GameObject container;
-                        if (modus == 2)
+                        if (_frameContainer != null)
                         {
-                            container = Instantiate(_buildable,
-                                _hit.collider.gameObject.transform.position,
-                                _hit.collider.gameObject.transform.rotation);
-                            if (!_hit.collider.gameObject.transform.parent.gameObject.name.Equals("Wall"))
+                            _frameContainer.transform.position = _hit.point;
+                            _frameContainer.transform.rotation = transform.rotation;
+                        }
+                    }
+
+                    if (_hit.distance < buildingDistance && !_vectorSet)
+                    {
+                        if (_frame != null)
+                            _frameContainer =
+                                Instantiate(_frame, _hit.point, transform.rotation);
+                        _frameVector = _hit.point;
+                        _vectorSet = true;
+                    }
+
+                    if (_hit.distance < buildingDistance && _hit.collider.gameObject.CompareTag("Frame"))
+                    {
+                        _hit.collider.gameObject.GetComponent<Frame>().tracked = true;
+                        _hit.collider.gameObject.GetComponent<Frame>().bc.mode = mode;
+                        Destroy(_frameContainer);
+                        _vectorSet = false;
+                    }
+
+                    if (_hit.distance < buildingDistance && _hit.collider.gameObject.CompareTag("Buildable"))
+                    {
+                        _hit.collider.gameObject.GetComponent<Buildable>().mode = mode;
+                        Destroy(_frameContainer);
+                        _vectorSet = false;
+                    }
+
+                    if (Input.GetButtonDown("Fire1") && _hit.distance < buildingDistance)
+                    {
+                        var hitGameObject = _hit.collider.gameObject;
+
+                        if (hitGameObject.CompareTag("Buildable"))
+                        {
+                        }
+                        else if (hitGameObject.CompareTag("Frame"))
+                        {
+                            GameObject container;
+                            if (mode == 2)
                             {
-                                container.transform.Rotate(0, 90, 0);  
+                                container = Instantiate(_buildable, hitGameObject.transform.position,
+                                    hitGameObject.transform.rotation);
+                                if (!_hit.collider.gameObject.transform.parent.gameObject.name.Equals("Wall"))
+                                {
+                                    container.transform.Rotate(0, 90, 0);
+                                }
+                            }
+                            else
+                            {
+                                container = Instantiate(_buildable, hitGameObject.transform.position,
+                                    hitGameObject.transform.rotation);
+                            }
+
+                            container.transform.SetParent(hitGameObject.transform.parent);
+                        }
+                        // neither "buildable" nor "frame"
+                        else
+                        {
+                            if (mode == 0)
+                            {
+                                var instance = Instantiate(_buildable, _hit.point, transform.rotation);
+                            }
+                            // ramp
+                            else if (mode == 1)
+                            {
+                                var instance = Instantiate(_buildable, _hit.point, transform.rotation);
+                                instance.transform.Rotate(0, 90, -45);
+                                instance.transform.Translate(-2.5f, 0, 0);
+                            }
+                            // wall
+                            else if (mode == 2)
+                            {
+                                var instance = Instantiate(_buildable, _hit.point, transform.rotation);
+                                instance.transform.Rotate(-90, 0, 0);
+                                instance.transform.Translate(0, 0, 2.5f);
+                            }
+                            else
+                            {
+                                Instantiate(_buildable, _hit.point, transform.rotation);
                             }
                         }
-                        else
-                        {
-                            container = Instantiate(_buildable,
-                                _hit.collider.gameObject.transform.position,
-                                _hit.collider.gameObject.transform.rotation);
-                        }
+                    }
 
-                        container.transform.SetParent(_hit.collider.gameObject.transform.parent);
-                    }
-                    // neither "buildable" nor "frame"
-                    else
-                    {
-                        if (modus == 0)
-                        {
-                            var instance = Instantiate(_buildable, _hit.point, transform.rotation);
-                        }
-                        // ramp
-                        else if (modus == 1)
-                        {
-                            var instance = Instantiate(_buildable, _hit.point, transform.rotation);
-                            instance.transform.Rotate(0, 90, -45);
-                            instance.transform.Translate(-2.5f, 0, 0);
-                        }
-                        // wall
-                        else if (modus == 2)
-                        {
-                            var instance = Instantiate(_buildable, _hit.point, transform.rotation);
-                            instance.transform.Rotate(-90, 0, 0);
-                            instance.transform.Translate(0, 0, 2.5f);
-                        }
-                        else
-                        {
-                            Instantiate(_buildable, _hit.point, transform.rotation);
-                        }
-                    }
+                    // // BlueprintController.
+                    //
+                    // if (_currentBlueprint != null)
+                    // {
+                    //     MoveCurrentBuildableWithMouse();
+                    //     RotateFromMouseWheel();
+                    // }
                 }
-
-                // // BlueprintController.
-                //
-                // if (_currentBlueprint != null)
-                // {
-                //     MoveCurrentBuildableWithMouse();
-                //     RotateFromMouseWheel();
-                //     Build(_currentPrefabIndex);
-                // }
             }
+        }
+
+        public int GetCurrentBuildMode()
+        {
+            return mode;
         }
 
         /* Choose the buildable
@@ -162,51 +162,105 @@ namespace _Scripts.Buildings
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                Debug.Log("1 pressed");
-                modus = 0;
-                _buildable = floor;
-                _frame = floorFrame;
-                Destroy(_frameContainer);
-                _vectorSet = false;
-                
+                if (!buildingSelected)
+                {
+                    Debug.Log("1 pressed");
+                    mode = 0;
+                    _buildable = floor;
+                    _frame = floorFrame;
+                    _vectorSet = false;
+                    buildingSelected = true;
+                    Destroy(_frameContainer);
+                }
+                else if (buildingSelected && mode != 0)
+                {
+                    Debug.Log("1 pressed");
+                    mode = 0;
+                    _buildable = floor;
+                    _frame = floorFrame;
+                    _vectorSet = false;
+                    buildingSelected = true;
+                    Destroy(_frameContainer);
+                }
+                else
+                {
+                    mode = 3;
+                    _buildable = null;
+                    _frame = null;
+                    Destroy(_frameContainer);
+                    _vectorSet = false;
+                    buildingSelected = false;
+                }
             }
+
 
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
-                Debug.Log("2 pressed");
-                modus = 1;
-                _buildable = ramp;
-                _frame = rampFrame;
-                Destroy(_frameContainer);
-                _vectorSet = false;
+                if (!buildingSelected)
+                {
+                    Debug.Log("2 pressed");
+                    mode = 1;
+                    _buildable = ramp;
+                    _frame = rampFrame;
+                    Destroy(_frameContainer);
+                    _vectorSet = false;
+                    buildingSelected = true;
+                }
+                else if (buildingSelected && mode != 1)
+                {
+                    Debug.Log("2 pressed");
+                    mode = 1;
+                    _buildable = ramp;
+                    _frame = rampFrame;
+                    Destroy(_frameContainer);
+                    _vectorSet = false;
+                    buildingSelected = true;
+                }
+                else
+                {
+                    mode = 3;
+                    _buildable = null;
+                    _frame = null;
+                    Destroy(_frameContainer);
+                    _vectorSet = false;
+                    buildingSelected = false;
+                }
             }
+
 
             if (Input.GetKeyDown(KeyCode.Alpha3))
             {
-                Debug.Log("3 pressed");
-                modus = 2;
-                _buildable = wall;
-                _frame = wallFrame;
-                Destroy(_frameContainer);
-                _vectorSet = false;
+                if (!buildingSelected)
+                {
+                    Debug.Log("3 pressed");
+                    mode = 2;
+                    _buildable = wall;
+                    _frame = wallFrame;
+                    Destroy(_frameContainer);
+                    _vectorSet = false;
+                    buildingSelected = true;
+                }
+                else if (buildingSelected && mode != 2)
+                {
+                    Debug.Log("3 pressed");
+                    mode = 2;
+                    _buildable = wall;
+                    _frame = wallFrame;
+                    Destroy(_frameContainer);
+                    _vectorSet = false;
+                    buildingSelected = true;
+                }
+                else
+                {
+                    mode = 3;
+                    _buildable = null;
+                    _frame = null;
+                    Destroy(_frameContainer);
+                    _vectorSet = false;
+                    buildingSelected = false;
+                }
             }
         }
-
-        // private bool PressedKeyOfCurrentPrefab(int i)
-        // {
-        //     return _currentBlueprint != null && _currentBlueprintIndex == i;
-        // }
-
-        // private void Build(int prefabIndex)
-        // {
-        //     if (Input.GetButtonDown("Fire1"))
-        //     {
-        //         Instantiate(buildablePrefab[prefabIndex], _currentBlueprint.transform.position,
-        //             _currentBlueprint.transform.rotation);
-        //         _currentBlueprint = null;
-        //         Destroy(_currentBlueprint);
-        //     }
-        // }
 
         // Rotate the buildable with the mouse wheel
         // private void RotateFromMouseWheel()
@@ -220,19 +274,6 @@ namespace _Scripts.Buildings
         //     else if (Input.GetAxis("Mouse ScrollWheel") > 0)
         //     {
         //         _currentBlueprint.transform.Rotate(Vector3.up, 90f);
-        //     }
-        // }
-
-        // Move the buildable to where the mouse is
-        // private void MoveCurrentBuildableWithMouse()
-        // {
-        //     RaycastHit hit;
-        //     Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0) /*Input.mousePosition*/);
-        //
-        //     if (Physics.Raycast(ray, out hit, 10f, layerMask))
-        //     {
-        //         Instantiate(_currentBlueprint, hit.point, transform.rotation);
-        //         // _currentBlueprint.transform.position = hit.point;
         //     }
         // }
     }

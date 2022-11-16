@@ -6,21 +6,22 @@ namespace _Scripts.Player
     {
         [SerializeField] private float walkingSpeed = 12f;
         [SerializeField] private float runningSpeed = 24f;
+        [SerializeField] private float jumpHeight = 3f;
+
+        [SerializeField] private float gravityValue = -9.81f;
         // [SerializeField] public float camSensitivity = 5.0f;
         // [SerializeField] public float camSmoothing = 2.0f;
 
-        public Transform groundCheck;
-        public float groundDistance = 0.5f;
-        public LayerMask groundMask;
-        
+        // public Transform groundCheck;
+        // public float groundDistance = 0.5f;
+        // public LayerMask groundMask;
+
         private CharacterController _controller;
         private Vector3 _playerVelocity;
 
         private bool _isGrounded;
-        
-        private float _jumpHeight = 3f;
-        private float _gravityValue = -9.81f;
-        private float currentSpeed;
+
+        private float _currentSpeed;
 
         void Start()
         {
@@ -29,38 +30,41 @@ namespace _Scripts.Player
 
         void Update()
         {
+            var playerMode = gameObject.GetComponent<PlayerController>().GetCurrentPlayerMode();
 
-            _isGrounded = _controller.isGrounded; //Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+            _isGrounded =
+                _controller.isGrounded; //Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
             _controller.slopeLimit = 50;
-            
+
             // 
             if (_isGrounded && _playerVelocity.y < 0)
             {
                 _playerVelocity.y = -2f;
             }
-            
-            float xAxis = Input.GetAxis("Horizontal");
-            float zAxis = Input.GetAxis("Vertical");
-            Vector3 move = transform.right * xAxis + transform.forward * zAxis;
+
+            var xAxis = Input.GetAxis("Horizontal");
+            var zAxis = Input.GetAxis("Vertical");
+            var move = transform.right * xAxis + transform.forward * zAxis;
 
             // Player is grounded and left shift is pressed
-            if (_isGrounded && Input.GetKey(KeyCode.LeftShift))
+            if (_isGrounded && Input.GetKey(KeyCode.LeftShift) && playerMode == 0)
             {
-                currentSpeed = runningSpeed;
+                _currentSpeed = runningSpeed;
             }
             else
             {
-                currentSpeed = walkingSpeed;
+                _currentSpeed = walkingSpeed;
             }
-            _controller.Move(move * currentSpeed * Time.deltaTime);
-            
+
+            _controller.Move(move * _currentSpeed * Time.deltaTime);
+
             // Changes the height position of the player
             if (Input.GetButtonDown("Jump") && _isGrounded)
             {
-                _playerVelocity.y += Mathf.Sqrt(_jumpHeight * -2f * _gravityValue);
+                _playerVelocity.y += Mathf.Sqrt(jumpHeight * -2f * gravityValue);
             }
 
-            _playerVelocity.y += _gravityValue * Time.deltaTime;
+            _playerVelocity.y += gravityValue * Time.deltaTime;
             _controller.Move(_playerVelocity * Time.deltaTime);
         }
     }

@@ -4,8 +4,8 @@ namespace _Scripts.Buildings
 {
     public class Frame : MonoBehaviour
     {
-        public Material frame;   // visible
-        public Material cutout;   // invisible
+        public Material frame; // visible
+        public Material cutout; // invisible
 
         public bool tracked;
 
@@ -14,14 +14,7 @@ namespace _Scripts.Buildings
         // Update is called once per frame
         void Update()
         {
-            if (tracked)
-            {
-                this.GetComponent<Renderer>().material = frame;
-            }
-            else
-            {
-                this.GetComponent<Renderer>().material = cutout;
-            }
+            GetComponent<Renderer>().material = tracked ? frame : cutout;
 
             tracked = false;
         }

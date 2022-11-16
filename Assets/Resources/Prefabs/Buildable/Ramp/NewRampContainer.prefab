@@ -610,7 +610,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5233625383867019838}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: NewRampContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -763,7 +763,7 @@ GameObject:
   - component: {fileID: 7803975705054263075}
   - component: {fileID: 3306819503107700007}
   - component: {fileID: 7347469825711816384}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Ramp
   m_TagString: Buildable
   m_Icon: {fileID: 0}
@@ -865,7 +865,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e536e93faadb63418790e0eede57a8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  modus: 0
+  mode: 0
   frameFloor1: {fileID: 5233625383787790675}
   frameFloor2: {fileID: 5233625383722440319}
   frameFloor3: {fileID: 5233625383787790675}

@@ -1,11 +1,14 @@
-using System;
 using UnityEngine;
 
 namespace _Scripts.Buildings
 {
     public class Buildable : MonoBehaviour
     {
-        public int modus = 0;
+        
+        private BuildingStats _stats;
+        
+        public int mode;
+        
         public GameObject frameFloor1;
         public GameObject frameFloor2;
         public GameObject frameFloor3;
@@ -23,9 +26,14 @@ namespace _Scripts.Buildings
         // public GameObject frameWall7;
         // public GameObject frameWall8;
 
+        private void Start()
+        {
+            _stats = new BuildingStats(10, 10);
+        }
+        
         private void Update()
         {
-            switch (modus)
+            switch (mode)
             {
                 // Floor building mode
                 case 0:
@@ -91,7 +99,19 @@ namespace _Scripts.Buildings
         {
             if (collision.gameObject.CompareTag("Ground"))
             {
-                this.transform.parent.transform.parent = null;          // The container is needed...
+                transform.parent.transform.parent = null;          // The container is needed...
+            }
+        }
+        
+        public void TakeDamage(int dmg)
+        {
+            if (_stats.CurrentHealth <= 0)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+               _stats.TakeDamage(dmg); 
             }
         }
     }
