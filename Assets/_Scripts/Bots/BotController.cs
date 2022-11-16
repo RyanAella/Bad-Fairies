@@ -38,6 +38,7 @@ namespace _Scripts.Bots
         private int _isRunningHash;
         private int _isAttackingHash;
         private int _isDyingHash;
+        private int _isGettingHitHash;
 
         // misc
         private Transform _target;
@@ -58,6 +59,7 @@ namespace _Scripts.Bots
             _isRunningHash = Animator.StringToHash("running");
             _isAttackingHash = Animator.StringToHash("attacking");
             _isDyingHash = Animator.StringToHash("dying");
+            _isGettingHitHash = Animator.StringToHash("gettingHit");
 
             _stats = new BotStats(50, 50, 5, 0);
         }

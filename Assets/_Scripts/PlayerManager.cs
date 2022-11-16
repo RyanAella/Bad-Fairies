@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace _Scripts
@@ -16,5 +17,10 @@ namespace _Scripts
         #endregion
 
         public GameObject player;
+
+        private void Start()
+        {
+            Instantiate(player, new Vector3(115, 1, -65), Quaternion.identity);
+        }
     }
 }

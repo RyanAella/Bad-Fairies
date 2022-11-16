@@ -1,6 +1,16 @@
 ﻿# Changelog
 
 
+## [0.11.0] - 2022-11-15
+### Added
+- Main Menu
+- Spawn Location
+- NavMesh to Level
+
+### Changed
+- Level Design
+
+
 ## [0.10.0] - 2022-11-12
 ### Added
 - Buildables are children if they are connected

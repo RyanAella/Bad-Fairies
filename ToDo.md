@@ -6,7 +6,7 @@
 
 
 ### GamePlay
-- [ ] **SpawnLocation**
+- [x] SpawnLocation 115, 1, -65
 - [ ] **PeacefulMode**
 - [ ] **FightMode**
 

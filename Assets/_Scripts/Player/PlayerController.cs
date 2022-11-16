@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace _Scripts.Player
@@ -6,7 +7,12 @@ namespace _Scripts.Player
     {
     
         private PlayerStats _stats;
-    
+
+        private void Awake()
+        {
+            // Instantiate(transform, new Vector3(115, 1, -65), Quaternion.identity);
+        }
+
 
         private void Start()
         {

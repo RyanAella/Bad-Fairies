@@ -1,14 +1,10 @@
+using TMPro;
 using UnityEngine;
 
 namespace _Scripts.Buildings
 {
     public class BuildingController : MonoBehaviour
     {
-        // [SerializeField] private GameObject[] frames;
-        // [SerializeField] private GameObject[] buildables;
-        // [SerializeField] private GameObject[] buildableBlueprints;
-        // [SerializeField] private GameObject[] buildablePrefab;
-        // [SerializeField] private LayerMask layerMask;
         [SerializeField] private int buildingDistance = 15;
 
         private BuildingStats _stats;
@@ -31,9 +27,6 @@ namespace _Scripts.Buildings
 
         // private int _currentFrameIndex = -1;
         // private int _currentBuildableIndex = -1;
-        private int modus = 0;
-
-        // public GameObject obstacle;
 
         public GameObject floor;
         public GameObject ramp;
@@ -41,6 +34,8 @@ namespace _Scripts.Buildings
         public GameObject floorFrame;
         public GameObject rampFrame;
         public GameObject wallFrame;
+        
+        public int modus = 0;
 
         private void Start()
         {
@@ -173,6 +168,7 @@ namespace _Scripts.Buildings
                 _frame = floorFrame;
                 Destroy(_frameContainer);
                 _vectorSet = false;
+                
             }
 
             if (Input.GetKeyDown(KeyCode.Alpha2))
