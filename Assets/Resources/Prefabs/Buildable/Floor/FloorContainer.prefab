@@ -112,7 +112,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   frame: {fileID: 2100000, guid: b517cca68d5f7174c94d6e0d5156e84f, type: 2}
   cutout: {fileID: 2100000, guid: 34241ffcd6c74fe4e87ffebbf9fa6081, type: 2}
+  warning: {fileID: 2100000, guid: d5ea3d6a8d6ac934c9fe3b7ac9d63c7a, type: 2}
   tracked: 0
+  unplacable: 0
   bc: {fileID: 6634383372479238904}
 --- !u!1 &2142434527144497406
 GameObject:
@@ -243,6 +245,7 @@ MonoBehaviour:
   frameWall2: {fileID: 7452062931803570973}
   frameWall3: {fileID: 3400594683528518397}
   frameWall4: {fileID: 1689098866083679619}
+  warning: {fileID: 2100000, guid: d5ea3d6a8d6ac934c9fe3b7ac9d63c7a, type: 2}
 --- !u!54 &416418716926275471
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -402,7 +405,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   frame: {fileID: 2100000, guid: b517cca68d5f7174c94d6e0d5156e84f, type: 2}
   cutout: {fileID: 2100000, guid: 34241ffcd6c74fe4e87ffebbf9fa6081, type: 2}
+  warning: {fileID: 2100000, guid: d5ea3d6a8d6ac934c9fe3b7ac9d63c7a, type: 2}
   tracked: 0
+  unplacable: 0
   bc: {fileID: 6634383372479238904}
 --- !u!1 &3597312943561497910
 GameObject:
@@ -516,7 +521,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   frame: {fileID: 2100000, guid: b517cca68d5f7174c94d6e0d5156e84f, type: 2}
   cutout: {fileID: 2100000, guid: 34241ffcd6c74fe4e87ffebbf9fa6081, type: 2}
+  warning: {fileID: 2100000, guid: d5ea3d6a8d6ac934c9fe3b7ac9d63c7a, type: 2}
   tracked: 0
+  unplacable: 0
   bc: {fileID: 6634383372479238904}
 --- !u!1 &4131961231701416828
 GameObject:
@@ -630,7 +637,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   frame: {fileID: 2100000, guid: b517cca68d5f7174c94d6e0d5156e84f, type: 2}
   cutout: {fileID: 2100000, guid: 34241ffcd6c74fe4e87ffebbf9fa6081, type: 2}
+  warning: {fileID: 2100000, guid: d5ea3d6a8d6ac934c9fe3b7ac9d63c7a, type: 2}
   tracked: 0
+  unplacable: 0
   bc: {fileID: 6634383372479238904}
 --- !u!1 &4131961232138514848
 GameObject:
@@ -744,7 +753,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   frame: {fileID: 2100000, guid: b517cca68d5f7174c94d6e0d5156e84f, type: 2}
   cutout: {fileID: 2100000, guid: 34241ffcd6c74fe4e87ffebbf9fa6081, type: 2}
+  warning: {fileID: 2100000, guid: d5ea3d6a8d6ac934c9fe3b7ac9d63c7a, type: 2}
   tracked: 0
+  unplacable: 0
   bc: {fileID: 6634383372479238904}
 --- !u!1 &4131961232279148000
 GameObject:
@@ -898,7 +909,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   frame: {fileID: 2100000, guid: b517cca68d5f7174c94d6e0d5156e84f, type: 2}
   cutout: {fileID: 2100000, guid: 34241ffcd6c74fe4e87ffebbf9fa6081, type: 2}
+  warning: {fileID: 2100000, guid: d5ea3d6a8d6ac934c9fe3b7ac9d63c7a, type: 2}
   tracked: 0
+  unplacable: 0
   bc: {fileID: 6634383372479238904}
 --- !u!1 &4131961232496618947
 GameObject:
@@ -1012,7 +1025,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   frame: {fileID: 2100000, guid: b517cca68d5f7174c94d6e0d5156e84f, type: 2}
   cutout: {fileID: 2100000, guid: 34241ffcd6c74fe4e87ffebbf9fa6081, type: 2}
+  warning: {fileID: 2100000, guid: d5ea3d6a8d6ac934c9fe3b7ac9d63c7a, type: 2}
   tracked: 0
+  unplacable: 0
   bc: {fileID: 6634383372479238904}
 --- !u!1 &4539085982844280331
 GameObject:
@@ -1126,7 +1141,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   frame: {fileID: 2100000, guid: b517cca68d5f7174c94d6e0d5156e84f, type: 2}
   cutout: {fileID: 2100000, guid: 34241ffcd6c74fe4e87ffebbf9fa6081, type: 2}
+  warning: {fileID: 2100000, guid: d5ea3d6a8d6ac934c9fe3b7ac9d63c7a, type: 2}
   tracked: 0
+  unplacable: 0
   bc: {fileID: 6634383372479238904}
 --- !u!1 &6720631166593307609
 GameObject:
@@ -1240,7 +1257,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   frame: {fileID: 2100000, guid: b517cca68d5f7174c94d6e0d5156e84f, type: 2}
   cutout: {fileID: 2100000, guid: 34241ffcd6c74fe4e87ffebbf9fa6081, type: 2}
+  warning: {fileID: 2100000, guid: d5ea3d6a8d6ac934c9fe3b7ac9d63c7a, type: 2}
   tracked: 0
+  unplacable: 0
   bc: {fileID: 6634383372479238904}
 --- !u!1 &7452062931803570973
 GameObject:
@@ -1354,7 +1373,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   frame: {fileID: 2100000, guid: b517cca68d5f7174c94d6e0d5156e84f, type: 2}
   cutout: {fileID: 2100000, guid: 34241ffcd6c74fe4e87ffebbf9fa6081, type: 2}
+  warning: {fileID: 2100000, guid: d5ea3d6a8d6ac934c9fe3b7ac9d63c7a, type: 2}
   tracked: 0
+  unplacable: 0
   bc: {fileID: 6634383372479238904}
 --- !u!1 &7854979123718013783
 GameObject:
@@ -1468,7 +1489,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   frame: {fileID: 2100000, guid: b517cca68d5f7174c94d6e0d5156e84f, type: 2}
   cutout: {fileID: 2100000, guid: 34241ffcd6c74fe4e87ffebbf9fa6081, type: 2}
+  warning: {fileID: 2100000, guid: d5ea3d6a8d6ac934c9fe3b7ac9d63c7a, type: 2}
   tracked: 0
+  unplacable: 0
   bc: {fileID: 6634383372479238904}
 --- !u!1 &8928725774805303340
 GameObject:
@@ -1582,5 +1605,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   frame: {fileID: 2100000, guid: b517cca68d5f7174c94d6e0d5156e84f, type: 2}
   cutout: {fileID: 2100000, guid: 34241ffcd6c74fe4e87ffebbf9fa6081, type: 2}
+  warning: {fileID: 2100000, guid: d5ea3d6a8d6ac934c9fe3b7ac9d63c7a, type: 2}
   tracked: 0
+  unplacable: 0
   bc: {fileID: 6634383372479238904}

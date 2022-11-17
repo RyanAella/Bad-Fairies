@@ -1,3 +1,4 @@
+using _Scripts.Buildings;
 using _Scripts.Player;
 using UnityEngine;
 using UnityEngine.AI;
@@ -20,28 +21,39 @@ namespace _Scripts.Bots
 
         private BotStats _stats;
 
-        [SerializeField] private float searchRadius = 10;
+        [SerializeField] protected internal float searchRadius = 10;
         [SerializeField] private float chaseRadius = 5;
         [SerializeField] public float attackRadius = 1;
         [SerializeField] private LayerMask mask;
+        [SerializeField] private LayerMask player;
 
         // bot movement
         [SerializeField] private float stopMargin = 0.1f;
-        private NavMeshAgent _agent;
+        protected internal NavMeshAgent _agent;
         private Vector3 _destination;
 
         // bot animation
-        private Animator _animator;
+        protected internal Animator _animator;
 
-        private int _isIdlingHash;
-        private int _isWalkingHash;
+        protected internal int _isIdlingHash;
+        protected internal int _isWalkingHash;
         private int _isRunningHash;
         private int _isAttackingHash;
         private int _isDyingHash;
         private int _isGettingHitHash;
+        private int _isHittingHash;
 
         // misc
         private Transform _target;
+
+        private static int _botCounter;
+
+        public Material water; // invisible
+
+        void Awake()
+        {
+            _botCounter++;
+        }
 
         // Start is called before the first frame update
         void Start()
@@ -59,9 +71,10 @@ namespace _Scripts.Bots
             _isRunningHash = Animator.StringToHash("running");
             _isAttackingHash = Animator.StringToHash("attacking");
             _isDyingHash = Animator.StringToHash("dying");
-            _isGettingHitHash = Animator.StringToHash("gettingHit");
+            _isGettingHitHash = Animator.StringToHash("getHit");
+            _isHittingHash = Animator.StringToHash("isHitting");
 
-            _stats = new BotStats(50, 50, 5, 0);
+            _stats = new BotStats(50, 50, 10, 0);
         }
 
         // Update is called once per frame
@@ -72,6 +85,8 @@ namespace _Scripts.Bots
             _animator.SetBool(_isAttackingHash, false);
 
             _destination = transform.position;
+
+            Debug.Log(_mode);
 
             switch (_mode)
             {
@@ -93,6 +108,11 @@ namespace _Scripts.Bots
             }
         }
 
+        public static int GetBotCounter()
+        {
+            return _botCounter;
+        }
+
         /**
          * Sets BotMode according to defined criteria.
          * Sets BotMode according to either distance to player or bot life.
@@ -102,7 +122,7 @@ namespace _Scripts.Bots
             var pos = transform.position;
             // _animator.SetBool(_isAttackingHash, false);
 
-            _mode = BotMode.Default;
+            _mode = BotMode.SearchEnemy;
 
             // Check if Bot is dead
             if (_stats.CurrentHealth <= 0)
@@ -119,23 +139,32 @@ namespace _Scripts.Bots
             }
 
             // Check if enemy in chase range (and in field of view)
-            Collider[] colliders = Physics.OverlapSphere(pos, chaseRadius, mask);
-            if (colliders.Length > 0)
+            Collider[] chase = Physics.OverlapSphere(pos, chaseRadius, mask);
+            if (chase.Length > 0)
             {
-                foreach (var col in colliders)
+                foreach (var col in chase)
                 {
-                    if (col.CompareTag("Player"))
-                    {
-                        var targetDir = col.transform.position - pos;
-                        var angleToPlayer = (Vector3.Angle(targetDir, transform.forward));
+                    var targetDir = col.transform.position - pos;
+                    var angleToPlayer = (Vector3.Angle(targetDir, transform.forward));
 
-                        if (angleToPlayer is >= -60 and <= 60) // 120° FOV 
-                        {
-                            Debug.Log("Player in sight!");
-                            _mode = BotMode.ChaseEnemy;
-                            return;
-                        }
+                    if (angleToPlayer is >= -60 and <= 60) // 120° FOV 
+                    {
+                        Debug.Log("Player in sight!");
+                        _mode = BotMode.ChaseEnemy;
+                        return;
                     }
+                    // if (col.CompareTag("Player"))
+                    // {
+                    //     var targetDir = col.transform.position - pos;
+                    //     var angleToPlayer = (Vector3.Angle(targetDir, transform.forward));
+
+                    //     if (angleToPlayer is >= -60 and <= 60) // 120° FOV 
+                    //     {
+                    //         Debug.Log("Player in sight!");
+                    //         _mode = BotMode.ChaseEnemy;
+                    //         return;
+                    //     }
+                    // }
                 }
             }
 
@@ -177,6 +206,8 @@ namespace _Scripts.Bots
             // Debug.Log("Bot is in default mode");
             _animator.SetTrigger(_isIdlingHash);
             // _animator.SetBool(isAttackingHash, false);
+            // InvokeRepeating("Patrol", 10f, 30f);
+            // gameObject.GetComponent<Patrol>();
         }
 
         private void Search()
@@ -185,40 +216,127 @@ namespace _Scripts.Bots
 
             var pos = transform.position;
 
-            // Debug.Log("Bot is in search mode");
+            Collider[] search = Physics.OverlapSphere(pos, searchRadius, mask);
+            if (search.Length > 0)
+            {
+                foreach (var col in search)
+                {
+                    Move(col.transform.position);
 
-            if (Physics.CheckSphere(pos, searchRadius, mask))
-            {
-                Move(_target.position);
+                    if (_destination != transform.position)
+                    {
+                        Move(_destination);
+                    }
+                    else if (!DestinationReached() && !Physics.CheckSphere(pos, searchRadius, mask))
+                    {
+                        _animator.SetTrigger(_isWalkingHash);
+                        Move(_destination);
+                    }
+                    else if (!DestinationReached() && Physics.CheckSphere(pos, searchRadius, player))
+                    {
+                        _animator.SetTrigger(_isWalkingHash);
+                        Move(_target.position);
+                    }
+                    else
+                    {
+                        _destination = transform.position;
+                    }
+                }
             }
 
-            if (_destination != transform.position /* && Physics.CheckSphere(pos, searchRadius, mask)*/)
-            {
-                Move(_target.position);
-            }
-            else if (!DestinationReached() && !Physics.CheckSphere(pos, searchRadius, mask))
-            {
-                _animator.SetTrigger(_isWalkingHash);
-                Move(_target.position);
-            }
-            else
-            {
-                _destination = transform.position;
-            }
+            // // Debug.Log("Bot is in search mode");
+
+            // if (Physics.CheckSphere(pos, searchRadius, mask))
+            // {
+            //     Move(_target.position);
+            // }
+
+            // if (_destination != transform.position /* && Physics.CheckSphere(pos, searchRadius, mask)*/)
+            // {
+            //     Move(_target.position);
+            // }
+            // else if (!DestinationReached() && !Physics.CheckSphere(pos, searchRadius, mask))
+            // {
+            //     _animator.SetTrigger(_isWalkingHash);
+            //     Move(_target.position);
+            // }
+            // else
+            // {
+            //     _destination = transform.position;
+            // }
         }
 
         private void Chase()
         {
             // Debug.Log("Bot is in chase mode");
             _animator.SetTrigger(_isRunningHash);
-            Move(_target.position);
+            // Move(_target.position);
+
+            var pos = transform.position;
+            Collider[] chase = Physics.OverlapSphere(pos, chaseRadius, mask);
+            if (chase.Length > 0)
+            {
+                foreach (var col in chase)
+                {
+                    Move(col.transform.position);
+                }
+            }
         }
 
         private void Attack()
         {
             // Debug.Log("Bot is in attack mode");
             _animator.SetBool(_isAttackingHash, true);
-            FaceTarget();
+
+            var pos = transform.position;
+
+            if (!_animator.GetCurrentAnimatorStateInfo(0).IsName("Attacking"))
+            {
+                // _animator.SetTrigger(_isHittingHash);
+                _animator.SetTrigger(_isHittingHash);
+            } 
+
+            // FaceTarget();
+
+            // Collider[] attack = Physics.OverlapSphere(pos, attackRadius, mask);
+            // if (attack.Length > 0)
+            // {
+            //     foreach (var col in attack)
+            //     {
+            //         FaceTarget(col.gameObject);
+            //         MakeDamage();
+            //         // if (Attack1AnimationDonePlaying() == true && Attack2AnimationDonePlaying() == true && PunchAnimationDonePlaying() == true)
+            //         // {
+            //         //     if (col.CompareTag("Player"))
+            //         //     {
+            //         //         col.transform.GetComponent<PlayerController>().TakeDamage(_stats.Damage);
+            //         //     }
+            //         //     else if (col.transform.CompareTag("Buildable"))
+            //         //     {
+            //         //         col.transform.gameObject.GetComponent<Buildable>().TakeDamage(_stats.Damage);
+            //         //     }
+            //         // }
+
+            //     }
+            // }
+
+
+
+            // RaycastHit hit;
+            // if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range, layerMask))
+            // {
+            //     if (hit.transform.gameObject.CompareTag("Buildable"))
+            //     {
+            //         hit.transform.gameObject.GetComponent<Buildable>().TakeDamage(damage);
+            //     }
+
+            //     var enemy = hit.transform.GetComponent<BotController>();
+
+            //     if (enemy != null)
+            //     {
+            //         enemy.TakeDamage(damage);
+            //     }
+            // }
         }
 
         private void Die()
@@ -235,14 +353,178 @@ namespace _Scripts.Bots
             Destroy(gameObject);
         }
 
-        public void TakeDamage(int dmg)
+        private void Attack1AnimationDonePlaying()
         {
-            _stats.TakeDamage(dmg);
+            Collider[] attack = Physics.OverlapSphere(transform.position, attackRadius, mask);
+            if (attack.Length > 0)
+            {
+                attack[0].transform.GetComponent<PlayerController>().TakeDamage(_stats.Damage);
+                Debug.Log("Hit");
+                // var enemy = attack[0];
+                // FaceTarget(enemy.gameObject);
+                // enemy.transform.GetComponent<PlayerController>().TakeDamage(_stats.Damage);
+                // Debug.Log("Hit");
+
+                // for (int i = 0; i < attack.Length; i++)
+                // // foreach (var col in attack)
+                // {
+                //     // var enemy = attack[0];
+                //     // FaceTarget(enemy.gameObject);
+                //     // enemy.transform.GetComponent<PlayerController>().TakeDamage(_stats.Damage);
+                //     // Debug.Log("Hit");
+                //     attack[i].transform.GetComponent<PlayerController>().TakeDamage(_stats.Damage);
+                //     Debug.Log("Hit");
+                //     if (i > 0)
+                //     {
+                //         if (attack[i] != attack[i - 1])
+                //         {
+                //             attack[i].transform.GetComponent<PlayerController>().TakeDamage(_stats.Damage);
+                //             Debug.Log("Hit");
+                //         }
+
+                //         // MakeDamage();
+                //         // if (Attack1AnimationDonePlaying() == true && Attack2AnimationDonePlaying() == true && PunchAnimationDonePlaying() == true)
+                //         // {
+                //         //     if (col.CompareTag("Player"))
+                //         //     {
+                //         //         col.transform.GetComponent<PlayerController>().TakeDamage(_stats.Damage);
+                //         //     }
+                //         //     else if (col.transform.CompareTag("Buildable"))
+                //         //     {
+                //         //         col.transform.gameObject.GetComponent<Buildable>().TakeDamage(_stats.Damage);
+                //         //     }
+                //         // }
+                //         // col.transform.GetComponent<PlayerController>().TakeDamage(_stats.Damage);
+                //         // if (col.CompareTag("Player"))
+                //         // {
+                //         //     col.transform.GetComponent<PlayerController>().TakeDamage(_stats.Damage);
+                //         // }
+                //     }
+                // }
+            }
         }
 
-        private void FaceTarget()
+        private void Attack2AnimationDonePlaying()
         {
-            Vector3 direction = (_target.position - transform.position).normalized;
+            Collider[] attack = Physics.OverlapSphere(transform.position, attackRadius, mask);
+            if (attack.Length > 0)
+            {
+                attack[0].transform.GetComponent<PlayerController>().TakeDamage(_stats.Damage);
+                Debug.Log("Hit");
+                // var enemy = attack[0];
+                // FaceTarget(enemy.gameObject);
+                // enemy.transform.GetComponent<PlayerController>().TakeDamage(_stats.Damage);
+                // Debug.Log("Hit");
+
+                // for (int i = 0; i < attack.Length; i++)
+                // // foreach (var col in attack)
+                // {
+                //     // var enemy = attack[0];
+                //     // FaceTarget(enemy.gameObject);
+                //     // enemy.transform.GetComponent<PlayerController>().TakeDamage(_stats.Damage);
+                //     // Debug.Log("Hit");
+                //     attack[i].transform.GetComponent<PlayerController>().TakeDamage(_stats.Damage);
+                //     Debug.Log("Hit");
+                //     if (i > 0)
+                //     {
+                //         if (attack[i] != attack[i - 1])
+                //         {
+                //             attack[i].transform.GetComponent<PlayerController>().TakeDamage(_stats.Damage);
+                //             Debug.Log("Hit");
+                //         }
+
+                //         // MakeDamage();
+                //         // if (Attack1AnimationDonePlaying() == true && Attack2AnimationDonePlaying() == true && PunchAnimationDonePlaying() == true)
+                //         // {
+                //         //     if (col.CompareTag("Player"))
+                //         //     {
+                //         //         col.transform.GetComponent<PlayerController>().TakeDamage(_stats.Damage);
+                //         //     }
+                //         //     else if (col.transform.CompareTag("Buildable"))
+                //         //     {
+                //         //         col.transform.gameObject.GetComponent<Buildable>().TakeDamage(_stats.Damage);
+                //         //     }
+                //         // }
+                //         // col.transform.GetComponent<PlayerController>().TakeDamage(_stats.Damage);
+                //         // if (col.CompareTag("Player"))
+                //         // {
+                //         //     col.transform.GetComponent<PlayerController>().TakeDamage(_stats.Damage);
+                //         // }
+                //     }
+                // }
+            }
+        }
+
+        private void PunchAnimationDonePlaying()
+        {
+            Collider[] attack = Physics.OverlapSphere(transform.position, attackRadius, mask);
+            if (attack.Length > 0)
+            {
+                attack[0].transform.GetComponent<PlayerController>().TakeDamage(_stats.Damage);
+                Debug.Log("Hit");
+                // var enemy = attack[0];
+                // FaceTarget(enemy.gameObject);
+                // enemy.transform.GetComponent<PlayerController>().TakeDamage(_stats.Damage);
+                // Debug.Log("Hit");
+
+                // for (int i = 0; i < attack.Length; i++)
+                // // foreach (var col in attack)
+                // {
+                //     // var enemy = attack[0];
+                //     // FaceTarget(enemy.gameObject);
+                //     // enemy.transform.GetComponent<PlayerController>().TakeDamage(_stats.Damage);
+                //     // Debug.Log("Hit");
+                //     attack[i].transform.GetComponent<PlayerController>().TakeDamage(_stats.Damage);
+                //     Debug.Log("Hit");
+                //     if (i > 0)
+                //     {
+                //         if (attack[i] != attack[i - 1])
+                //         {
+                //             attack[i].transform.GetComponent<PlayerController>().TakeDamage(_stats.Damage);
+                //             Debug.Log("Hit");
+                //         }
+
+                //         // MakeDamage();
+                //         // if (Attack1AnimationDonePlaying() == true && Attack2AnimationDonePlaying() == true && PunchAnimationDonePlaying() == true)
+                //         // {
+                //         //     if (col.CompareTag("Player"))
+                //         //     {
+                //         //         col.transform.GetComponent<PlayerController>().TakeDamage(_stats.Damage);
+                //         //     }
+                //         //     else if (col.transform.CompareTag("Buildable"))
+                //         //     {
+                //         //         col.transform.gameObject.GetComponent<Buildable>().TakeDamage(_stats.Damage);
+                //         //     }
+                //         // }
+                //         // col.transform.GetComponent<PlayerController>().TakeDamage(_stats.Damage);
+                //         // if (col.CompareTag("Player"))
+                //         // {
+                //         //     col.transform.GetComponent<PlayerController>().TakeDamage(_stats.Damage);
+                //         // }
+                //     }
+                // }
+            }
+        }
+
+        public void TakeDamage(int dmg)
+        {
+            if (_stats.CurrentHealth > 0)
+            {
+                _animator.SetTrigger(_isGettingHitHash);
+                _stats.TakeDamage(dmg);
+            }
+        }
+
+        // private void FaceTarget()
+        // {
+        //     Vector3 direction = (_target.position - transform.position).normalized;
+        //     Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+        //     transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+        // }
+
+        private void FaceTarget(GameObject col)
+        {
+            Vector3 direction = (col.transform.position - transform.position).normalized;
             Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
         }

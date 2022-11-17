@@ -6,7 +6,7 @@ namespace _Scripts
     {
         protected internal int CurrentHealth { get; protected set; }
         protected int MaxHealth { get; set; }
-        protected int Damage { get; set; }
+        protected internal int Damage { get; protected set; }
         protected int Armor { get; set; }
 
         protected Stats()
@@ -33,10 +33,10 @@ namespace _Scripts
         }
 
         public void TakeDamage(int dmgAmount)
-        {
-            Debug.Log("Take " + dmgAmount + " damage.");
+        {            
             if (CurrentHealth > 0)
             {
+                Debug.Log("Take " + dmgAmount + " damage.");
                 CurrentHealth -= dmgAmount;
             }
         }

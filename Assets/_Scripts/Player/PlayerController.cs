@@ -11,6 +11,8 @@ namespace _Scripts.Player
             Die // player life == 0, destroy gameobject
         }
 
+        [SerializeField] private GameObject gameManager;
+
         // player behaviour
         private PlayerMode _mode = PlayerMode.Default;
 
@@ -29,18 +31,18 @@ namespace _Scripts.Player
         {
             UpdatePlayerMode();
 
-            // switch (_mode)
-            // {
-            //     case PlayerMode.Default:
-            //         Default();
-            //         break;
-            //     case PlayerMode.BuildMode:
-            //         Building();
-            //         break;
-            //     case PlayerMode.Die:
-            //         Die();
-            //         break;
-            // }
+            switch (_mode)
+            {
+                case PlayerMode.Default:
+                    // Default();
+                    break;
+                case PlayerMode.BuildMode:
+                    // Building();
+                    break;
+                case PlayerMode.Die:
+                    Die();
+                    break;
+            }
         }
 
         /**
@@ -56,6 +58,7 @@ namespace _Scripts.Player
             {
                 _mode = PlayerMode.Die;
                 _playerMode = 2;
+                Die();
                 return;
             }
 
@@ -95,15 +98,15 @@ namespace _Scripts.Player
 
         private void Die()
         {
-            if (Stats.CurrentHealth <= 0)
-            {
-                Destroy(gameObject);
-            }
+            Destroy(gameObject);
         }
 
         public void TakeDamage(int dmg)
         {
-            Stats.TakeDamage(dmg);
+            if (Stats.CurrentHealth > 0)
+            {
+                Stats.TakeDamage(dmg);
+            }
         }
 
         public int GetCurrentPlayerMode()

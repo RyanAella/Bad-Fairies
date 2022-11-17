@@ -19,7 +19,7 @@ namespace _Scripts.Player
 
         private void Start()
         {
-            Instantiate(player, new Vector3(115, 1, -65), Quaternion.identity);
+            Instantiate(player, new Vector3(115, 2, -65), Quaternion.identity);
         }
     }
 }

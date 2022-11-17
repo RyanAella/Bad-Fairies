@@ -3,7 +3,7 @@ using _Scripts.Player;
 using TMPro;
 using UnityEngine;
 
-namespace _Scripts
+namespace _Scripts.UI
 {
     public class UIBehaviourScript : MonoBehaviour
     {

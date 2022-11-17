@@ -29,11 +29,11 @@
 - [ ] AnimationsController (optional)
 - [x] PlayerController
   - [x] Camera
-  - [ ] Die Mode
-  - [ ] Make Damage
-    - [ ] Bots
+  - [x] Die Mode
+  - [x] Make Damage
+    - [x] Bots
     - [x] Buildables
-  - [ ] Take Damage
+  - [x] Take Damage
 - [x] PlayerMovement
   - [x] Walk
   - [x] Run
@@ -49,7 +49,7 @@
   - [x] Run
   - [x] Attack
   - [x] Die
-  - [ ] Hit
+  - [x] Hit
 - [ ] Bot AI
   - [ ] Verhaltensbäume??
 - [ ] **AnimationsController**

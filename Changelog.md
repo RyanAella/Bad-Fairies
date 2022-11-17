@@ -1,6 +1,19 @@
 ﻿# Changelog
 
 
+## [0.13.0] - 2022-11-17
+## Added
+- Bot
+  - detects Buildables
+  - makes damage
+  - Hit Animation
+- Player
+  - Takes Damage
+  - Dies
+- Buildables
+  - no instantiation if hit location has Tag "Environment" 
+
+
 ## [0.12.0] - 2022-11-16
 ### Added
 - UI

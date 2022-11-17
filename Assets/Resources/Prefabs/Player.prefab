@@ -1285,7 +1285,6 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 1088
-  damage: 10
   range: 100
 --- !u!1 &6908883980551408853
 GameObject:
@@ -1685,6 +1684,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b89200efb94b4f298131f809b6d1b0ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameManager: {fileID: 4107121499096154114, guid: 8a98d26c9f12c1946ae55a98399b86e5, type: 3}
 --- !u!114 &6908883982167189019
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1705,4 +1705,5 @@ MonoBehaviour:
   floorFrame: {fileID: 2660738977814211143, guid: 1ca20ec05b5ef4248bd8d5fa880a94e3, type: 3}
   rampFrame: {fileID: 4226523320047406765, guid: e25f5dfd684b1c64e95f4e384e12bb70, type: 3}
   wallFrame: {fileID: 4131961232279148000, guid: 36c46414600cb3443af8960f439fc5d7, type: 3}
+  warning: {fileID: 2100000, guid: d5ea3d6a8d6ac934c9fe3b7ac9d63c7a, type: 2}
   mode: 0

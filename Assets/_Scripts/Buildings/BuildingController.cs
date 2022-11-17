@@ -60,7 +60,8 @@ namespace _Scripts.Buildings
                         }
                     }
 
-                    if (_hit.distance < buildingDistance && !_vectorSet)
+                    // if not Environment
+                    if (_hit.distance < buildingDistance && !_vectorSet&& !_hit.collider.CompareTag("Environment"))
                     {
                         if (_frame != null)
                             _frameContainer =
@@ -84,7 +85,7 @@ namespace _Scripts.Buildings
                         _vectorSet = false;
                     }
 
-                    if (Input.GetButtonDown("Fire1") && _hit.distance < buildingDistance)
+                    if (Input.GetButtonDown("Fire1") && _hit.distance < buildingDistance && !_hit.collider.CompareTag("Environment"))
                     {
                         var hitGameObject = _hit.collider.gameObject;
 
@@ -137,6 +138,7 @@ namespace _Scripts.Buildings
                                 Instantiate(_buildable, _hit.point, transform.rotation);
                             }
                         }
+                    } else {
                     }
 
                     // // BlueprintController.
