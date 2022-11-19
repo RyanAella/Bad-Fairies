@@ -1,6 +1,23 @@
 ﻿# Changelog
 
 
+## [0.14.0] - 2022-11-19
+## Added
+- Standard Assets Package
+- Level
+  - Build
+  - Color
+  - NavMesh
+- Stats
+  - integrated Armor calculation
+- Player
+  - can use Bombs
+    - Damage
+    - Force
+- Bot
+  - can choose from three different attacking animations
+
+
 ## [0.13.0] - 2022-11-17
 ## Added
 - Bot

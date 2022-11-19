@@ -7,17 +7,17 @@
 
 ### GamePlay
 - [x] SpawnLocation 115, 1, -65
-- [ ] **PeacefulMode**
-- [ ] **FightMode**
+- [x] PeacefulMode
+- [x] FightMode
 
 
 ### Buildmechanik
-- [ ] Bauteile Prefabs 
+- [ ] **Bauteile Prefabs**
 - [x] BuildingController
 - [x] Life Points
 - [x] Destruction
-- [ ] Snap to Grid
-- [ ] Rot, wenn Bauplatz belegt ist
+- [ ] **Snap to Grid**
+- [ ] **Rot, wenn Bauplatz belegt ist**
 
 
 ### PlayerCharacter
@@ -34,6 +34,8 @@
     - [x] Bots
     - [x] Buildables
   - [x] Take Damage
+    - [ ] **Weapon**
+    - [x] Bomb
 - [x] PlayerMovement
   - [x] Walk
   - [x] Run
@@ -50,17 +52,15 @@
   - [x] Attack
   - [x] Die
   - [x] Hit
-- [ ] Bot AI
-  - [ ] Verhaltensbäume??
-- [ ] **AnimationsController**
-  - [ ] **Wechsel zwischen verschiedenen Angriffs-Animationen**
+- [x] AnimationsController
+  - [x] Wechsel zwischen verschiedenen Angriffs-Animationen
 - [x] BotController
 - [x] BotMovement
   - [x] Angriff in Zielrichtung
 
 
 ### Level
-- [x] **Designen**
-- [ ] **Bauen**
-- [ ] **NavMesh baken**
-- [ ] **Ground needs the Tag Ground so that the components that lie on the ground are handled properly when they are destroyed.**
+- [x] Designen
+- [x] Bauen
+- [x] NavMesh baken
+- [x] Ground needs the Tag Ground so that the components that lie on the ground are handled properly when they are destroyed.

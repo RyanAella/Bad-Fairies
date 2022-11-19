@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7934533389428523628}
   - component: {fileID: 7934533389428523630}
   - component: {fileID: 5592452173488724022}
-  - component: {fileID: 3131400540491400309}
+  - component: {fileID: 2094377445648703270}
   m_Layer: 6
   m_Name: Bot
   m_TagString: Bot
@@ -132,8 +132,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   stopMargin: 0.1
+  attackIndexLow: 0
+  attackIndexHigh: 3
   water: {fileID: 2100000, guid: d5ea3d6a8d6ac934c9fe3b7ac9d63c7a, type: 2}
---- !u!114 &3131400540491400309
+--- !u!114 &2094377445648703270
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -142,9 +144,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 7934533389428523625}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4230b419cd36364f9abe573bcbb96e3, type: 3}
+  m_Script: {fileID: 11500000, guid: 9d27b7c02590409ca088ab0ca639d100, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MaxHealth: 50
+  Damage: 10
+  Armor: 0
 --- !u!1001 &7934533390040173429
 PrefabInstance:
   m_ObjectHideFlags: 0

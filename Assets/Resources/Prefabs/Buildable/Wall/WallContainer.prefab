@@ -614,6 +614,7 @@ GameObject:
   - component: {fileID: 2142434527144497155}
   - component: {fileID: 2142434527144497404}
   - component: {fileID: 6634383372479238904}
+  - component: {fileID: 4898424415216262352}
   - component: {fileID: 5480644066036608930}
   m_Layer: 10
   m_Name: Wall
@@ -734,6 +735,21 @@ MonoBehaviour:
   frameWall2: {fileID: 6720631166593307609}
   frameWall3: {fileID: 8928725774805303340}
   frameWall4: {fileID: 4539085982844280331}
+--- !u!114 &4898424415216262352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2142434527144497406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d27b7c02590409ca088ab0ca639d100, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxHealth: 40
+  Damage: 0
+  Armor: 5
 --- !u!54 &5480644066036608930
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -11,20 +11,31 @@ namespace _Scripts.Player
             Die // player life == 0, destroy gameobject
         }
 
-        [SerializeField] private GameObject gameManager;
+        // player instance
+        public static GameObject instance { get; private set; }
 
         // player behaviour
         private PlayerMode _mode = PlayerMode.Default;
 
-        public PlayerStats Stats;
+        [HideInInspector]
+        public Stats m_stats;
 
         private bool _buildingActive = false;
 
         private int _playerMode = 0;
 
-        private void Start()
+        private void Awake()
         {
-            Stats = new PlayerStats(50, 50, 10, 3);
+            if (instance != null && instance != gameObject)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                instance = gameObject;
+            }
+
+            m_stats = GetComponent(typeof(Stats)) as Stats;
         }
 
         private void Update()
@@ -54,7 +65,7 @@ namespace _Scripts.Player
             var pos = transform.position;
 
             // Check if Player is dead
-            if (Stats.CurrentHealth <= 0)
+            if (m_stats.CurrentHealth <= 0)
             {
                 _mode = PlayerMode.Die;
                 _playerMode = 2;
@@ -103,9 +114,9 @@ namespace _Scripts.Player
 
         public void TakeDamage(int dmg)
         {
-            if (Stats.CurrentHealth > 0)
+            if (m_stats.CurrentHealth > 0)
             {
-                Stats.TakeDamage(dmg);
+                m_stats.TakeDamage(dmg);
             }
         }
 

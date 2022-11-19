@@ -32,8 +32,7 @@ namespace _Scripts.Player
         {
             var playerMode = gameObject.GetComponent<PlayerController>().GetCurrentPlayerMode();
 
-            _isGrounded =
-                _controller.isGrounded; //Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+            _isGrounded = _controller.isGrounded;
             _controller.slopeLimit = 50;
 
             // 

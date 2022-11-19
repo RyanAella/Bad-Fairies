@@ -61,7 +61,7 @@ namespace _Scripts.Buildings
                     }
 
                     // if not Environment
-                    if (_hit.distance < buildingDistance && !_vectorSet&& !_hit.collider.CompareTag("Environment"))
+                    if (_hit.distance < buildingDistance && !_vectorSet && !_hit.collider.CompareTag("Environment"))
                     {
                         if (_frame != null)
                             _frameContainer =
@@ -95,7 +95,28 @@ namespace _Scripts.Buildings
                         else if (hitGameObject.CompareTag("Frame"))
                         {
                             GameObject container;
-                            if (mode == 2)
+                            if (mode == 0)
+                            {
+                                container = Instantiate(_buildable, hitGameObject.transform.position,
+                                    hitGameObject.transform.rotation);
+                                if (!_hit.collider.gameObject.transform.parent.gameObject.name.Equals("Floor"))
+                                {
+                                    container.transform.Rotate(0, 180, 0);
+                                }
+                                container.transform.SetParent(hitGameObject.transform.parent);
+                            }
+                            else if (mode == 1)
+                            {
+                                container = Instantiate(_buildable, hitGameObject.transform.position,
+                                    hitGameObject.transform.rotation);
+                                if (_hit.collider.gameObject.transform.parent.gameObject.name.Equals("Ramp"))
+                                {
+                                    container.transform.Rotate(0, 180, 0);
+
+                                }
+                                container.transform.SetParent(hitGameObject.transform.parent);
+                            }
+                            else if (mode == 2)
                             {
                                 container = Instantiate(_buildable, hitGameObject.transform.position,
                                     hitGameObject.transform.rotation);
@@ -103,14 +124,14 @@ namespace _Scripts.Buildings
                                 {
                                     container.transform.Rotate(0, 90, 0);
                                 }
+                                container.transform.SetParent(hitGameObject.transform.parent);
                             }
                             else
                             {
                                 container = Instantiate(_buildable, hitGameObject.transform.position,
                                     hitGameObject.transform.rotation);
+                                container.transform.SetParent(hitGameObject.transform.parent);
                             }
-
-                            container.transform.SetParent(hitGameObject.transform.parent);
                         }
                         // neither "buildable" nor "frame"
                         else
@@ -138,7 +159,9 @@ namespace _Scripts.Buildings
                                 Instantiate(_buildable, _hit.point, transform.rotation);
                             }
                         }
-                    } else {
+                    }
+                    else
+                    {
                     }
 
                     // // BlueprintController.

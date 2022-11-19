@@ -1,6 +1,11 @@
 ﻿# jetbrains
 /.idea/
 
+# vs code
+.vs/
+.vscode/
+.vsconfig
+
 # Unity
 /[Ll]ibrary/
 /[Ll]ogs/

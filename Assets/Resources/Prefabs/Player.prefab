@@ -1261,7 +1261,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6908883980270523192}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0.683}
+  m_LocalPosition: {x: 0.17, y: 1, z: 0.68}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1281,11 +1281,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 6908883982167189225}
+  bombPrefab: {fileID: 3159526320199942321, guid: 42c49725a1771664dbe73ede978c0680, type: 3}
   fpsCam: {fileID: 6908883980687636704}
   layerMask:
     serializedVersion: 2
     m_Bits: 1088
   range: 100
+  throwForce: 50
 --- !u!1 &6908883980551408853
 GameObject:
   m_ObjectHideFlags: 0
@@ -1583,6 +1585,7 @@ GameObject:
   - component: {fileID: 6908883982167189231}
   - component: {fileID: 6908883982167189228}
   - component: {fileID: 6908883982167189011}
+  - component: {fileID: 1727703252849008618}
   - component: {fileID: 6908883982167189019}
   m_Layer: 7
   m_Name: Player
@@ -1684,7 +1687,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b89200efb94b4f298131f809b6d1b0ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 4107121499096154114, guid: 8a98d26c9f12c1946ae55a98399b86e5, type: 3}
+  m_stats: {fileID: 0}
+--- !u!114 &1727703252849008618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6908883982167189225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d27b7c02590409ca088ab0ca639d100, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxHealth: 50
+  Damage: 20
+  Armor: 5
 --- !u!114 &6908883982167189019
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1705,5 +1723,4 @@ MonoBehaviour:
   floorFrame: {fileID: 2660738977814211143, guid: 1ca20ec05b5ef4248bd8d5fa880a94e3, type: 3}
   rampFrame: {fileID: 4226523320047406765, guid: e25f5dfd684b1c64e95f4e384e12bb70, type: 3}
   wallFrame: {fileID: 4131961232279148000, guid: 36c46414600cb3443af8960f439fc5d7, type: 3}
-  warning: {fileID: 2100000, guid: d5ea3d6a8d6ac934c9fe3b7ac9d63c7a, type: 2}
   mode: 0

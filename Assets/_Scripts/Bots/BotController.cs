@@ -1,4 +1,3 @@
-using _Scripts.Buildings;
 using _Scripts.Player;
 using UnityEngine;
 using UnityEngine.AI;
@@ -19,7 +18,7 @@ namespace _Scripts.Bots
         // bot behaviour
         private BotMode _mode = BotMode.Default;
 
-        private BotStats _stats;
+        private Stats m_stats;
 
         [SerializeField] protected internal float searchRadius = 10;
         [SerializeField] private float chaseRadius = 5;
@@ -33,15 +32,20 @@ namespace _Scripts.Bots
         private Vector3 _destination;
 
         // bot animation
+        private static System.Random random;  // used for randomly choosing attack animations
+
         protected internal Animator _animator;
 
         protected internal int _isIdlingHash;
         protected internal int _isWalkingHash;
         private int _isRunningHash;
         private int _isAttackingHash;
+        private int _attackIndexHash;
         private int _isDyingHash;
         private int _isGettingHitHash;
-        private int _isHittingHash;
+
+        [SerializeField] int attackIndexLow;
+        [SerializeField] int attackIndexHigh;
 
         // misc
         private Transform _target;
@@ -53,6 +57,7 @@ namespace _Scripts.Bots
         void Awake()
         {
             _botCounter++;
+            random = new System.Random();
         }
 
         // Start is called before the first frame update
@@ -64,17 +69,18 @@ namespace _Scripts.Bots
 
             _agent.stoppingDistance = attackRadius - stopMargin;
 
-            _target = PlayerManager.instance.player.transform;
+            _target = PlayerController.instance.transform;
 
             _isIdlingHash = Animator.StringToHash("idle");
             _isWalkingHash = Animator.StringToHash("walking");
             _isRunningHash = Animator.StringToHash("running");
             _isAttackingHash = Animator.StringToHash("attacking");
+            _attackIndexHash = Animator.StringToHash("attackIndex");
             _isDyingHash = Animator.StringToHash("dying");
             _isGettingHitHash = Animator.StringToHash("getHit");
-            _isHittingHash = Animator.StringToHash("isHitting");
 
-            _stats = new BotStats(50, 50, 10, 0);
+            //_stats = new BotStats(50, 50, 10, 0);
+            m_stats = GetComponent(typeof(Stats)) as Stats;
         }
 
         // Update is called once per frame
@@ -122,10 +128,10 @@ namespace _Scripts.Bots
             var pos = transform.position;
             // _animator.SetBool(_isAttackingHash, false);
 
-            _mode = BotMode.SearchEnemy;
+            _mode = BotMode.Default;
 
             // Check if Bot is dead
-            if (_stats.CurrentHealth <= 0)
+            if (m_stats.CurrentHealth <= 0)
             {
                 _mode = BotMode.Die;
                 return;
@@ -243,27 +249,6 @@ namespace _Scripts.Bots
                     }
                 }
             }
-
-            // // Debug.Log("Bot is in search mode");
-
-            // if (Physics.CheckSphere(pos, searchRadius, mask))
-            // {
-            //     Move(_target.position);
-            // }
-
-            // if (_destination != transform.position /* && Physics.CheckSphere(pos, searchRadius, mask)*/)
-            // {
-            //     Move(_target.position);
-            // }
-            // else if (!DestinationReached() && !Physics.CheckSphere(pos, searchRadius, mask))
-            // {
-            //     _animator.SetTrigger(_isWalkingHash);
-            //     Move(_target.position);
-            // }
-            // else
-            // {
-            //     _destination = transform.position;
-            // }
         }
 
         private void Chase()
@@ -285,58 +270,21 @@ namespace _Scripts.Bots
 
         private void Attack()
         {
-            // Debug.Log("Bot is in attack mode");
-            _animator.SetBool(_isAttackingHash, true);
-
-            var pos = transform.position;
-
             if (!_animator.GetCurrentAnimatorStateInfo(0).IsName("Attacking"))
             {
-                // _animator.SetTrigger(_isHittingHash);
-                _animator.SetTrigger(_isHittingHash);
-            } 
+                // prepare attack animation to be used by randomly choosing a attackIndex
+                var attackIndex = random.Next(attackIndexLow, attackIndexHigh);
 
-            // FaceTarget();
+                Debug.Log("Attack Index: " + attackIndex);
 
-            // Collider[] attack = Physics.OverlapSphere(pos, attackRadius, mask);
-            // if (attack.Length > 0)
-            // {
-            //     foreach (var col in attack)
-            //     {
-            //         FaceTarget(col.gameObject);
-            //         MakeDamage();
-            //         // if (Attack1AnimationDonePlaying() == true && Attack2AnimationDonePlaying() == true && PunchAnimationDonePlaying() == true)
-            //         // {
-            //         //     if (col.CompareTag("Player"))
-            //         //     {
-            //         //         col.transform.GetComponent<PlayerController>().TakeDamage(_stats.Damage);
-            //         //     }
-            //         //     else if (col.transform.CompareTag("Buildable"))
-            //         //     {
-            //         //         col.transform.gameObject.GetComponent<Buildable>().TakeDamage(_stats.Damage);
-            //         //     }
-            //         // }
+                // set attackIndex and enable attack animation
+                _animator.SetInteger(_attackIndexHash, attackIndex);
+                _animator.SetBool(_isAttackingHash, true);
 
-            //     }
-            // }
-
-
-
-            // RaycastHit hit;
-            // if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range, layerMask))
-            // {
-            //     if (hit.transform.gameObject.CompareTag("Buildable"))
-            //     {
-            //         hit.transform.gameObject.GetComponent<Buildable>().TakeDamage(damage);
-            //     }
-
-            //     var enemy = hit.transform.GetComponent<BotController>();
-
-            //     if (enemy != null)
-            //     {
-            //         enemy.TakeDamage(damage);
-            //     }
-            // }
+                /* 
+                     may keep facing target while playing the animation
+                */
+            }
         }
 
         private void Die()
@@ -353,165 +301,29 @@ namespace _Scripts.Bots
             Destroy(gameObject);
         }
 
-        private void Attack1AnimationDonePlaying()
+        private void ApplyDamageToTarget()
         {
+            /*
+                do not just check for attack range but also for field of view
+            */
+
             Collider[] attack = Physics.OverlapSphere(transform.position, attackRadius, mask);
             if (attack.Length > 0)
             {
-                attack[0].transform.GetComponent<PlayerController>().TakeDamage(_stats.Damage);
-                Debug.Log("Hit");
-                // var enemy = attack[0];
-                // FaceTarget(enemy.gameObject);
-                // enemy.transform.GetComponent<PlayerController>().TakeDamage(_stats.Damage);
-                // Debug.Log("Hit");
-
-                // for (int i = 0; i < attack.Length; i++)
-                // // foreach (var col in attack)
-                // {
-                //     // var enemy = attack[0];
-                //     // FaceTarget(enemy.gameObject);
-                //     // enemy.transform.GetComponent<PlayerController>().TakeDamage(_stats.Damage);
-                //     // Debug.Log("Hit");
-                //     attack[i].transform.GetComponent<PlayerController>().TakeDamage(_stats.Damage);
-                //     Debug.Log("Hit");
-                //     if (i > 0)
-                //     {
-                //         if (attack[i] != attack[i - 1])
-                //         {
-                //             attack[i].transform.GetComponent<PlayerController>().TakeDamage(_stats.Damage);
-                //             Debug.Log("Hit");
-                //         }
-
-                //         // MakeDamage();
-                //         // if (Attack1AnimationDonePlaying() == true && Attack2AnimationDonePlaying() == true && PunchAnimationDonePlaying() == true)
-                //         // {
-                //         //     if (col.CompareTag("Player"))
-                //         //     {
-                //         //         col.transform.GetComponent<PlayerController>().TakeDamage(_stats.Damage);
-                //         //     }
-                //         //     else if (col.transform.CompareTag("Buildable"))
-                //         //     {
-                //         //         col.transform.gameObject.GetComponent<Buildable>().TakeDamage(_stats.Damage);
-                //         //     }
-                //         // }
-                //         // col.transform.GetComponent<PlayerController>().TakeDamage(_stats.Damage);
-                //         // if (col.CompareTag("Player"))
-                //         // {
-                //         //     col.transform.GetComponent<PlayerController>().TakeDamage(_stats.Damage);
-                //         // }
-                //     }
-                // }
+                Stats targetStats = attack[0].transform.GetComponent(typeof(Stats)) as Stats;
+                if (targetStats != null) targetStats.TakeDamage(m_stats.Damage);
             }
-        }
 
-        private void Attack2AnimationDonePlaying()
-        {
-            Collider[] attack = Physics.OverlapSphere(transform.position, attackRadius, mask);
-            if (attack.Length > 0)
-            {
-                attack[0].transform.GetComponent<PlayerController>().TakeDamage(_stats.Damage);
-                Debug.Log("Hit");
-                // var enemy = attack[0];
-                // FaceTarget(enemy.gameObject);
-                // enemy.transform.GetComponent<PlayerController>().TakeDamage(_stats.Damage);
-                // Debug.Log("Hit");
-
-                // for (int i = 0; i < attack.Length; i++)
-                // // foreach (var col in attack)
-                // {
-                //     // var enemy = attack[0];
-                //     // FaceTarget(enemy.gameObject);
-                //     // enemy.transform.GetComponent<PlayerController>().TakeDamage(_stats.Damage);
-                //     // Debug.Log("Hit");
-                //     attack[i].transform.GetComponent<PlayerController>().TakeDamage(_stats.Damage);
-                //     Debug.Log("Hit");
-                //     if (i > 0)
-                //     {
-                //         if (attack[i] != attack[i - 1])
-                //         {
-                //             attack[i].transform.GetComponent<PlayerController>().TakeDamage(_stats.Damage);
-                //             Debug.Log("Hit");
-                //         }
-
-                //         // MakeDamage();
-                //         // if (Attack1AnimationDonePlaying() == true && Attack2AnimationDonePlaying() == true && PunchAnimationDonePlaying() == true)
-                //         // {
-                //         //     if (col.CompareTag("Player"))
-                //         //     {
-                //         //         col.transform.GetComponent<PlayerController>().TakeDamage(_stats.Damage);
-                //         //     }
-                //         //     else if (col.transform.CompareTag("Buildable"))
-                //         //     {
-                //         //         col.transform.gameObject.GetComponent<Buildable>().TakeDamage(_stats.Damage);
-                //         //     }
-                //         // }
-                //         // col.transform.GetComponent<PlayerController>().TakeDamage(_stats.Damage);
-                //         // if (col.CompareTag("Player"))
-                //         // {
-                //         //     col.transform.GetComponent<PlayerController>().TakeDamage(_stats.Damage);
-                //         // }
-                //     }
-                // }
-            }
-        }
-
-        private void PunchAnimationDonePlaying()
-        {
-            Collider[] attack = Physics.OverlapSphere(transform.position, attackRadius, mask);
-            if (attack.Length > 0)
-            {
-                attack[0].transform.GetComponent<PlayerController>().TakeDamage(_stats.Damage);
-                Debug.Log("Hit");
-                // var enemy = attack[0];
-                // FaceTarget(enemy.gameObject);
-                // enemy.transform.GetComponent<PlayerController>().TakeDamage(_stats.Damage);
-                // Debug.Log("Hit");
-
-                // for (int i = 0; i < attack.Length; i++)
-                // // foreach (var col in attack)
-                // {
-                //     // var enemy = attack[0];
-                //     // FaceTarget(enemy.gameObject);
-                //     // enemy.transform.GetComponent<PlayerController>().TakeDamage(_stats.Damage);
-                //     // Debug.Log("Hit");
-                //     attack[i].transform.GetComponent<PlayerController>().TakeDamage(_stats.Damage);
-                //     Debug.Log("Hit");
-                //     if (i > 0)
-                //     {
-                //         if (attack[i] != attack[i - 1])
-                //         {
-                //             attack[i].transform.GetComponent<PlayerController>().TakeDamage(_stats.Damage);
-                //             Debug.Log("Hit");
-                //         }
-
-                //         // MakeDamage();
-                //         // if (Attack1AnimationDonePlaying() == true && Attack2AnimationDonePlaying() == true && PunchAnimationDonePlaying() == true)
-                //         // {
-                //         //     if (col.CompareTag("Player"))
-                //         //     {
-                //         //         col.transform.GetComponent<PlayerController>().TakeDamage(_stats.Damage);
-                //         //     }
-                //         //     else if (col.transform.CompareTag("Buildable"))
-                //         //     {
-                //         //         col.transform.gameObject.GetComponent<Buildable>().TakeDamage(_stats.Damage);
-                //         //     }
-                //         // }
-                //         // col.transform.GetComponent<PlayerController>().TakeDamage(_stats.Damage);
-                //         // if (col.CompareTag("Player"))
-                //         // {
-                //         //     col.transform.GetComponent<PlayerController>().TakeDamage(_stats.Damage);
-                //         // }
-                //     }
-                // }
-            }
+            // disable continous attack animation if nothing in attack range
+            _animator.SetBool(_isAttackingHash, false);
         }
 
         public void TakeDamage(int dmg)
         {
-            if (_stats.CurrentHealth > 0)
+            if (m_stats.CurrentHealth > 0)
             {
                 _animator.SetTrigger(_isGettingHitHash);
-                _stats.TakeDamage(dmg);
+                m_stats.TakeDamage(dmg);
             }
         }
 

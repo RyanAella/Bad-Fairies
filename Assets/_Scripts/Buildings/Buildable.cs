@@ -3,10 +3,7 @@ using UnityEngine;
 namespace _Scripts.Buildings
 {
     public class Buildable : MonoBehaviour
-    {
-        
-        private BuildingStats _stats;
-        
+    {        
         public int mode;
         
         public GameObject frameFloor1;
@@ -26,9 +23,11 @@ namespace _Scripts.Buildings
         // public GameObject frameWall7;
         // public GameObject frameWall8;
 
+        private Stats m_stats;
+
         private void Start()
         {
-            _stats = new BuildingStats(10, 10);
+            m_stats = GetComponent(typeof(Stats)) as Stats;
         }
         
         private void Update()
@@ -105,13 +104,13 @@ namespace _Scripts.Buildings
         
         public void TakeDamage(int dmg)
         {
-            if (_stats.CurrentHealth <= 0)
+            if (m_stats.CurrentHealth <= 0)
             {
-                Destroy(gameObject);
+                Destroy(gameObject.transform.parent);
             }
             else
             {
-               _stats.TakeDamage(dmg); 
+               m_stats.TakeDamage(dmg); 
             }
         }
     }

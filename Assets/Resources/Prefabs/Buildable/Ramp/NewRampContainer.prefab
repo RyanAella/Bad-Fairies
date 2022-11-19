@@ -112,9 +112,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   frame: {fileID: 2100000, guid: b517cca68d5f7174c94d6e0d5156e84f, type: 2}
   cutout: {fileID: 2100000, guid: 34241ffcd6c74fe4e87ffebbf9fa6081, type: 2}
-  warning: {fileID: 2100000, guid: d5ea3d6a8d6ac934c9fe3b7ac9d63c7a, type: 2}
   tracked: 0
-  unplacable: 0
   bc: {fileID: 3306819503107700007}
 --- !u!1 &1394035023934911976
 GameObject:
@@ -259,9 +257,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   frame: {fileID: 2100000, guid: b517cca68d5f7174c94d6e0d5156e84f, type: 2}
   cutout: {fileID: 2100000, guid: 34241ffcd6c74fe4e87ffebbf9fa6081, type: 2}
-  warning: {fileID: 2100000, guid: d5ea3d6a8d6ac934c9fe3b7ac9d63c7a, type: 2}
   tracked: 0
-  unplacable: 0
   bc: {fileID: 3306819503107700007}
 --- !u!1 &4619012371855620841
 GameObject:
@@ -375,9 +371,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   frame: {fileID: 2100000, guid: b517cca68d5f7174c94d6e0d5156e84f, type: 2}
   cutout: {fileID: 2100000, guid: 34241ffcd6c74fe4e87ffebbf9fa6081, type: 2}
-  warning: {fileID: 2100000, guid: d5ea3d6a8d6ac934c9fe3b7ac9d63c7a, type: 2}
   tracked: 0
-  unplacable: 0
   bc: {fileID: 3306819503107700007}
 --- !u!1 &5233625383722440319
 GameObject:
@@ -491,9 +485,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   frame: {fileID: 2100000, guid: b517cca68d5f7174c94d6e0d5156e84f, type: 2}
   cutout: {fileID: 2100000, guid: 34241ffcd6c74fe4e87ffebbf9fa6081, type: 2}
-  warning: {fileID: 2100000, guid: d5ea3d6a8d6ac934c9fe3b7ac9d63c7a, type: 2}
   tracked: 0
-  unplacable: 0
   bc: {fileID: 3306819503107700007}
 --- !u!1 &5233625383787790675
 GameObject:
@@ -607,9 +599,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   frame: {fileID: 2100000, guid: b517cca68d5f7174c94d6e0d5156e84f, type: 2}
   cutout: {fileID: 2100000, guid: 34241ffcd6c74fe4e87ffebbf9fa6081, type: 2}
-  warning: {fileID: 2100000, guid: d5ea3d6a8d6ac934c9fe3b7ac9d63c7a, type: 2}
   tracked: 0
-  unplacable: 0
   bc: {fileID: 3306819503107700007}
 --- !u!1 &5233625383867019839
 GameObject:
@@ -757,9 +747,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   frame: {fileID: 2100000, guid: b517cca68d5f7174c94d6e0d5156e84f, type: 2}
   cutout: {fileID: 2100000, guid: 34241ffcd6c74fe4e87ffebbf9fa6081, type: 2}
-  warning: {fileID: 2100000, guid: d5ea3d6a8d6ac934c9fe3b7ac9d63c7a, type: 2}
   tracked: 0
-  unplacable: 0
   bc: {fileID: 3306819503107700007}
 --- !u!1 &7803975705054263073
 GameObject:
@@ -775,6 +763,7 @@ GameObject:
   - component: {fileID: 7803975705054263075}
   - component: {fileID: 3306819503107700007}
   - component: {fileID: 7347469825711816384}
+  - component: {fileID: 4068869242806751377}
   m_Layer: 10
   m_Name: Ramp
   m_TagString: Buildable
@@ -890,7 +879,6 @@ MonoBehaviour:
   frameWall2: {fileID: 1394035023934911976}
   frameWall3: {fileID: 1394035023934911976}
   frameWall4: {fileID: 1394035023934911976}
-  warning: {fileID: 2100000, guid: d5ea3d6a8d6ac934c9fe3b7ac9d63c7a, type: 2}
 --- !u!54 &7347469825711816384
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -907,3 +895,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &4068869242806751377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7803975705054263073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d27b7c02590409ca088ab0ca639d100, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxHealth: 40
+  Damage: 0
+  Armor: 5

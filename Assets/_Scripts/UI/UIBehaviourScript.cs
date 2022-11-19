@@ -17,8 +17,9 @@ namespace _Scripts.UI
 
         void Update()
         {
-            var playerController = player.GetComponent<PlayerController>();
-            stats.text = "Life Points: " + playerController.Stats.CurrentHealth;
+            var playerController = player.GetComponent(typeof(PlayerController)) as PlayerController;
+            var playerStats = player.GetComponent(typeof(Stats)) as Stats;
+            stats.text = "Life Points: " + playerStats.CurrentHealth;
 
             if (playerController.GetCurrentPlayerMode() == 1)
             {
