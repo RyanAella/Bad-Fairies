@@ -27,7 +27,7 @@ namespace _Scripts
                 if (damage <= 0) damage = 1;
 
                 /* DEBUG ONLY set damage to 0 */
-                damage = 0;
+                //damage = 0;
 
                 CurrentHealth -= damage;
             }

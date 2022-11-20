@@ -1,6 +1,20 @@
 ﻿# Changelog
 
 
+## [0.15.0] - 2022-11-20
+## Added
+- BotFactory
+  - spawn Bots at three different locations
+  - spawn a certain amount of bots at the same time
+  - spawn a maximum amount of bots during the game
+
+## Changed
+- Stairs
+  - increased number of stairs
+- NavMesh
+  - new Baking
+
+
 ## [0.14.0] - 2022-11-19
 ## Added
 - Standard Assets Package

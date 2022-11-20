@@ -298,6 +298,8 @@ namespace _Scripts.Bots
 
         private void DeathAnimationDonePlaying()
         {
+            BotFactory.RemoveBotFromList(gameObject);
+
             Destroy(gameObject);
         }
 

@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3159259039776867231}
-  - component: {fileID: 6936392205124770781}
   - component: {fileID: 122383297}
+  - component: {fileID: 5143816573381481911}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -33,19 +33,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6936392205124770781
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4107121499096154114}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9401c31ef89ffd345a3262df9b09d466, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 6908883982167189225, guid: 581d4b2616905bc478e8d640fc46a0a9, type: 3}
 --- !u!114 &122383297
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61,4 +48,19 @@ MonoBehaviour:
   bot: {fileID: 7934533389428523625, guid: 63918c4439bc71148bd95759b3f12bbf, type: 3}
   player: {fileID: 6908883982167189225, guid: 581d4b2616905bc478e8d640fc46a0a9, type: 3}
   victoryScreen: {fileID: 134484229163459038, guid: 0bfdb153a4f201f44bfc30a600c9462e, type: 3}
-  camera: {fileID: 1996587308415350138, guid: d797aca533947d8488fcf4d73be83191, type: 3}
+--- !u!114 &5143816573381481911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4107121499096154114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae8f3964a4955d94c88f1b1e55cc7608, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxBotCount: 0
+  maxIngameBotCout: 0
+  spawnLocations: []
+  botCounter: 0
