@@ -18,10 +18,6 @@ namespace _Scripts.Buildings
         public GameObject frameWall2;
         public GameObject frameWall3;
         public GameObject frameWall4;
-        // public GameObject frameWall5;
-        // public GameObject frameWall6;
-        // public GameObject frameWall7;
-        // public GameObject frameWall8;
 
         private Stats m_stats;
 
@@ -35,6 +31,7 @@ namespace _Scripts.Buildings
             switch (mode)
             {
                 // Floor building mode
+                // Set floor frames to active
                 case 0:
                     frameFloor1.SetActive(true);
                     frameFloor2.SetActive(true);
@@ -48,12 +45,9 @@ namespace _Scripts.Buildings
                     frameWall2.SetActive(false);
                     frameWall3.SetActive(false);
                     frameWall4.SetActive(false);
-                    // frameWall5.SetActive(false);
-                    // frameWall6.SetActive(false);
-                    // frameWall7.SetActive(false);
-                    // frameWall8.SetActive(false);
                     break;
                 // Ramp building mode
+                // Set ramp frames to active
                 case 1:
                     frameFloor1.SetActive(false);
                     frameFloor2.SetActive(false);
@@ -67,12 +61,9 @@ namespace _Scripts.Buildings
                     frameWall2.SetActive(false);
                     frameWall3.SetActive(false);
                     frameWall4.SetActive(false);
-                    // frameWall5.SetActive(false);
-                    // frameWall6.SetActive(false);
-                    // frameWall7.SetActive(false);
-                    // frameWall8.SetActive(false);
                     break;
                 // Wall building mode
+                // Set wall frames to active
                 case 2:
                     frameFloor1.SetActive(false);
                     frameFloor2.SetActive(false);
@@ -86,28 +77,27 @@ namespace _Scripts.Buildings
                     frameWall2.SetActive(true);
                     frameWall3.SetActive(true);
                     frameWall4.SetActive(true);
-                    // frameWall5.SetActive(true);
-                    // frameWall6.SetActive(true);
-                    // frameWall7.SetActive(true);
-                    // frameWall8.SetActive(true);
                     break;
             }
         }
 
         public void OnCollisionEnter(Collision collision)
         {
+            // If the buildable is placed on the ground its container doesn't have a parent 
             if (collision.gameObject.CompareTag("Ground"))
             {
-                transform.parent.transform.parent = null;          // The container is needed...
+                transform.parent.transform.parent = null;
             }
         }
         
         public void TakeDamage(int dmg)
         {
+            // If life is equal to or smaller than 0 the container gets destroyed
             if (m_stats.CurrentHealth <= 0)
             {
                 Destroy(gameObject.transform.parent);
             }
+            // Otherwise it takes damage
             else
             {
                m_stats.TakeDamage(dmg); 

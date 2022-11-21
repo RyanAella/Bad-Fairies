@@ -69,7 +69,7 @@ namespace _Scripts.Bots
 
             _agent.stoppingDistance = attackRadius - stopMargin;
 
-            _target = PlayerController.instance.transform;
+            _target = PlayerController.Instance.transform;
 
             _isIdlingHash = Animator.StringToHash("idle");
             _isWalkingHash = Animator.StringToHash("walking");

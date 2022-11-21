@@ -25,31 +25,38 @@ namespace _Scripts
         {
             var pos = transform.position;
             
+            // Instantiate the explosion at the bomb position and play the Audio
             m_ExplosionInstance = Instantiate(explosionPrefab, pos, Quaternion.identity);
             gameObject.GetComponent<AudioSource>().Play();
 
+            // Check if an Object with a certain Layer is inside the explosionRadius
             var objs = Physics.OverlapSphere(pos, explosionRadius, interactionLayer);
             foreach (var c in objs)
             {
+                // Get the distance from bomb to object
                 var dist = Vector3.Distance(pos, c.transform.position);
 
+                // Get the damage multiplier depending on the distance
                 var dmgMultiplier = Mathf.InverseLerp(explosionRadius, 0.0f, dist);
-                Debug.Log("dmg multiplier: " + dmgMultiplier);
+                //Debug.Log("dmg multiplier: " + dmgMultiplier);
 
+                // Multiply the explosionForce/explosionDamage with the damage multiplier
                 var force = explosionForce * dmgMultiplier;
                 var dmg = explosionDamage * dmgMultiplier;
 
                 Rigidbody targetRigidbody = c.gameObject.GetComponent(typeof(Rigidbody)) as Rigidbody;
                 Stats targetStats = c.gameObject.GetComponent(typeof(Stats)) as Stats;
 
+                // If the target has a Rigidbody
                 if (targetRigidbody != null)
                 {
-                    Debug.Log("Bomb aplies force");
+                    //Debug.Log("Bomb aplies force");
                     targetRigidbody.AddExplosionForce(force, pos, explosionRadius, 1, ForceMode.Impulse);
                 }
+                // If the target has life
                 if (targetStats != null)
                 {
-                    Debug.Log("Bomb does damage");
+                    //Debug.Log("Bomb does damage");
                     targetStats.TakeDamage((int)dmg);
                 }
             }
@@ -60,6 +67,7 @@ namespace _Scripts
             Invoke(nameof(CleanUp), 2f);
         }
 
+        // Destroy the bomb and the explosion
         void CleanUp()
         {
             Destroy(m_ExplosionInstance);

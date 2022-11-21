@@ -19,8 +19,11 @@ namespace _Scripts.UI
         {
             var playerController = player.GetComponent(typeof(PlayerController)) as PlayerController;
             var playerStats = player.GetComponent(typeof(Stats)) as Stats;
+
+            // Show the current player health in the UI
             stats.text = "Life Points: " + playerStats.CurrentHealth;
 
+            // If BuildMode is active
             if (playerController.GetCurrentPlayerMode() == 1)
             {
                 keyCode.text = "Exit Build Mode with \"Esc\"";
@@ -28,6 +31,7 @@ namespace _Scripts.UI
                 lineTwo.enabled = true;
                 lineThree.enabled = true;
                 
+                // If a building is selected
                 if (player.GetComponent<BuildingController>().buildingSelected)
                 {
                     _buildingMode = player.GetComponent<BuildingController>().GetCurrentBuildMode();
@@ -36,6 +40,7 @@ namespace _Scripts.UI
                     lineTwo.color = Color.white;
                     lineThree.color = Color.white;
                 
+                    // Show which building is selected
                     if (_buildingMode == 0)
                     {
                         lineOne.color = Color.red;

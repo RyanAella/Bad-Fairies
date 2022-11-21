@@ -9,12 +9,6 @@ namespace _Scripts.Player
         [SerializeField] private float jumpHeight = 3f;
 
         [SerializeField] private float gravityValue = -9.81f;
-        // [SerializeField] public float camSensitivity = 5.0f;
-        // [SerializeField] public float camSmoothing = 2.0f;
-
-        // public Transform groundCheck;
-        // public float groundDistance = 0.5f;
-        // public LayerMask groundMask;
 
         private CharacterController _controller;
         private Vector3 _playerVelocity;
@@ -32,10 +26,11 @@ namespace _Scripts.Player
         {
             var playerMode = gameObject.GetComponent<PlayerController>().GetCurrentPlayerMode();
 
+            // Check the player grounded state and set the slope limit
             _isGrounded = _controller.isGrounded;
             _controller.slopeLimit = 50;
 
-            // 
+            // If the player is grounded
             if (_isGrounded && _playerVelocity.y < 0)
             {
                 _playerVelocity.y = -2f;
@@ -45,7 +40,7 @@ namespace _Scripts.Player
             var zAxis = Input.GetAxis("Vertical");
             var move = transform.right * xAxis + transform.forward * zAxis;
 
-            // Player is grounded and left shift is pressed
+            // Player is grounded and left shift is pressed and player is in Default Mode
             if (_isGrounded && Input.GetKey(KeyCode.LeftShift) && playerMode == 0)
             {
                 _currentSpeed = runningSpeed;

@@ -12,7 +12,7 @@ namespace _Scripts.Player
         }
 
         // player instance
-        public static GameObject instance { get; private set; }
+        public static GameObject Instance { get; private set; }
 
         // player behaviour
         private PlayerMode _mode = PlayerMode.Default;
@@ -26,13 +26,13 @@ namespace _Scripts.Player
 
         private void Awake()
         {
-            if (instance != null && instance != gameObject)
+            if (Instance != null && Instance != gameObject)
             {
                 Destroy(gameObject);
             }
             else
             {
-                instance = gameObject;
+                Instance = gameObject;
             }
 
             m_stats = GetComponent(typeof(Stats)) as Stats;
@@ -73,12 +73,14 @@ namespace _Scripts.Player
                 return;
             }
 
+            // If Building Mode is not active
             if (!_buildingActive)
             {
                 _mode = PlayerMode.Default;
                 _playerMode = 0;
             }
 
+            // If player is in Default Mode and B is pressed
             if (_playerMode == 0 && (!_buildingActive && Input.GetKeyDown(KeyCode.B)))
             {
                 _mode = PlayerMode.BuildMode;
@@ -87,6 +89,7 @@ namespace _Scripts.Player
                 return;
             }
 
+            // If Build Mode is active and B is pressed
             if (_playerMode == 1 && (_buildingActive && Input.GetKeyDown(KeyCode.B)))
             {
                 _mode = PlayerMode.Default;
@@ -112,6 +115,7 @@ namespace _Scripts.Player
             Destroy(gameObject);
         }
 
+        // Player takes damage
         public void TakeDamage(int dmg)
         {
             if (m_stats.CurrentHealth > 0)
@@ -120,6 +124,7 @@ namespace _Scripts.Player
             }
         }
 
+        // Returns the current player mode
         public int GetCurrentPlayerMode()
         {
             return _playerMode;
