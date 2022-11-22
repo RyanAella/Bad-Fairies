@@ -95,7 +95,7 @@ namespace _Scripts.Buildings
             // If life is equal to or smaller than 0 the container gets destroyed
             if (m_stats.CurrentHealth <= 0)
             {
-                Destroy(gameObject.transform.parent);
+                Destroy(gameObject.transform.parent.gameObject);
             }
             // Otherwise it takes damage
             else

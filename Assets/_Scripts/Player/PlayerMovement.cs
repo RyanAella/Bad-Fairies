@@ -24,7 +24,7 @@ namespace _Scripts.Player
 
         void Update()
         {
-            var playerMode = gameObject.GetComponent<PlayerController>().GetCurrentPlayerMode();
+            var playerMode = gameObject.GetComponent<PlayerController>().GetPlayerMode();
 
             // Check the player grounded state and set the slope limit
             _isGrounded = _controller.isGrounded;
@@ -41,7 +41,7 @@ namespace _Scripts.Player
             var move = transform.right * xAxis + transform.forward * zAxis;
 
             // Player is grounded and left shift is pressed and player is in Default Mode
-            if (_isGrounded && Input.GetKey(KeyCode.LeftShift) && playerMode == 0)
+            if (_isGrounded && Input.GetKey(KeyCode.LeftShift) && playerMode == PlayerController.PlayerMode.Default)
             {
                 _currentSpeed = runningSpeed;
             }

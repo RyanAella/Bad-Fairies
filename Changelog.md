@@ -1,6 +1,19 @@
 ﻿# Changelog
 
 
+## [0.16.0] - 2022-11-22
+## Added
+- 2 different Weapons
+  - can change between them and an empty hand
+  - have different stats
+
+## Changed
+- Buildables
+  - Changed size of Ramp
+
+Code Cleanup
+
+
 ## [0.15.0] - 2022-11-20
 ## Added
 - BotFactory

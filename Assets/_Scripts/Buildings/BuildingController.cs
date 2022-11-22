@@ -35,7 +35,7 @@ namespace _Scripts.Buildings
 
         private void Update()
         {
-            if (gameObject.GetComponent<PlayerController>().GetCurrentPlayerMode() == 1)
+            if (GetComponent<PlayerController>().GetPlayerMode() == PlayerController.PlayerMode.BuildMode)
             {
                 ChooseBuildable();
 
@@ -171,10 +171,10 @@ namespace _Scripts.Buildings
 
         private void Build()
         {
-            _ray = Camera.main!.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+            //_ray = Camera.main!.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
 
-            // If the Ray "hits" an object
-            if (Physics.Raycast(_ray, out _hit))
+            // If the Ray "hits" an object    //(_ray, out _hit))
+            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out _hit))
             {
                 // zu weit weg
                 if (_hit.distance > buildingDistance)
@@ -187,8 +187,13 @@ namespace _Scripts.Buildings
                 // If hit collider is not an object with Tag Environment the frame is shown
                 if (_hit.distance < buildingDistance && !_vectorSet && !_hit.collider.CompareTag("Environment"))
                 {
-                    if (_frame != null) _frameContainer = Instantiate(_frame, SnapToGrid(_hit.point), transform.rotation);
-                    _frameVector = SnapToGrid(_hit.point);
+                    if (_frame != null)
+                    {
+                        var vector = new Vector3(Mathf.Round(_hit.point.x), Mathf.Round(_hit.point.y) + _frame.transform.localScale.y, Mathf.Round(_hit.point.z));
+                        _frameContainer = Instantiate(_frame, vector, transform.rotation);
+                        _frameVector = vector;
+                    }
+                    
                     _vectorSet = true;
                 }
 
@@ -197,7 +202,7 @@ namespace _Scripts.Buildings
                 {
                     if (_frameContainer != null)
                     {
-                        _frameContainer.transform.position = SnapToGrid(_hit.point);
+                        _frameContainer.transform.position = new Vector3(Mathf.Round(_hit.point.x), Mathf.Round(_hit.point.y), Mathf.Round(_hit.point.z));
                         _frameContainer.transform.rotation = transform.rotation;
                     }
                 }
@@ -207,7 +212,7 @@ namespace _Scripts.Buildings
                 {
                     _hit.collider.gameObject.GetComponent<Frame>().tracked = true;
                     _hit.collider.gameObject.GetComponent<Frame>().bc.mode = mode;
-                    _vectorSet = false; 
+                    _vectorSet = false;
                     Destroy(_frameContainer);
                 }
 
@@ -253,6 +258,10 @@ namespace _Scripts.Buildings
                             {
                                 container.transform.Rotate(0, 180, 0);
 
+                            } else
+                            {
+                                container.transform.Rotate(0, 0, 180);
+                                //container.transform.Translate(1, 0, 0);
                             }
                             container.transform.SetParent(hitGameObject.transform.parent);
                         }
@@ -280,25 +289,25 @@ namespace _Scripts.Buildings
                         // If floor is active
                         if (mode == 0)
                         {
-                            var instance = Instantiate(_buildable, SnapToGrid(_hit.point), transform.rotation);
+                            var instance = Instantiate(_buildable, new Vector3(Mathf.Round(_hit.point.x), Mathf.Round(_hit.point.y), Mathf.Round(_hit.point.z)), transform.rotation); //SnapToGrid(_hit.point)
                         }
                         // If ramp is active
                         else if (mode == 1)
                         {
-                            var instance = Instantiate(_buildable, SnapToGrid(_hit.point), transform.rotation);
+                            var instance = Instantiate(_buildable, new Vector3(Mathf.Round(_hit.point.x), Mathf.Round(_hit.point.y), Mathf.Round(_hit.point.z)), transform.rotation);
                             instance.transform.Rotate(0, 90, -45);
                             instance.transform.Translate(-2.5f, 0, 0);
                         }
                         // If wall is active
                         else if (mode == 2)
                         {
-                            var instance = Instantiate(_buildable, SnapToGrid(_hit.point), transform.rotation);
+                            var instance = Instantiate(_buildable, new Vector3(Mathf.Round(_hit.point.x), Mathf.Round(_hit.point.y), Mathf.Round(_hit.point.z)), transform.rotation);
                             instance.transform.Rotate(-90, 0, 0);
                             instance.transform.Translate(0, 0, 2.5f);
                         }
                         else
                         {
-                            Instantiate(_buildable, SnapToGrid(_hit.point), transform.rotation);
+                            var instance = Instantiate(_buildable, new Vector3(Mathf.Round(_hit.point.x), Mathf.Round(_hit.point.y), Mathf.Round(_hit.point.z)), transform.rotation);
                         }
                     }
                 }

@@ -4,7 +4,7 @@ namespace _Scripts.Player
 {
     public class PlayerController : MonoBehaviour
     {
-        private enum PlayerMode
+        public enum PlayerMode
         {
             Default, // player can walk, run, jump and attack enemies
             BuildMode, // player can walk, jump and build
@@ -21,8 +21,6 @@ namespace _Scripts.Player
         public Stats m_stats;
 
         private bool _buildingActive = false;
-
-        private int _playerMode = 0;
 
         private void Awake()
         {
@@ -68,7 +66,6 @@ namespace _Scripts.Player
             if (m_stats.CurrentHealth <= 0)
             {
                 _mode = PlayerMode.Die;
-                _playerMode = 2;
                 Die();
                 return;
             }
@@ -77,23 +74,20 @@ namespace _Scripts.Player
             if (!_buildingActive)
             {
                 _mode = PlayerMode.Default;
-                _playerMode = 0;
             }
 
             // If player is in Default Mode and B is pressed
-            if (_playerMode == 0 && (!_buildingActive && Input.GetKeyDown(KeyCode.B)))
+            if (_mode == PlayerMode.Default && (!_buildingActive && Input.GetKeyDown(KeyCode.B)))
             {
                 _mode = PlayerMode.BuildMode;
-                _playerMode = 1;
                 _buildingActive = true;
                 return;
             }
 
             // If Build Mode is active and B is pressed
-            if (_playerMode == 1 && (_buildingActive && Input.GetKeyDown(KeyCode.B)))
+            if (_mode == PlayerMode.BuildMode && (_buildingActive && Input.GetKeyDown(KeyCode.B)))
             {
                 _mode = PlayerMode.Default;
-                _playerMode = 0;
                 _buildingActive = false;
             }
         }
@@ -125,9 +119,9 @@ namespace _Scripts.Player
         }
 
         // Returns the current player mode
-        public int GetCurrentPlayerMode()
+        public PlayerMode GetPlayerMode()
         {
-            return _playerMode;
+            return _mode;
         }
     }
 }

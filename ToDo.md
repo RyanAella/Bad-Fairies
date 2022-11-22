@@ -12,11 +12,11 @@
 
 
 ### Buildmechanik
-- [ ] **Bauteile Prefabs**
+- [x] Bauteile Prefabs
 - [x] BuildingController
 - [x] Life Points
 - [x] Destruction
-- [ ] **Snap to Grid**
+- [x] Snap to Grid
 - [ ] **Rot, wenn Bauplatz belegt ist**
 
 
@@ -34,7 +34,7 @@
     - [x] Bots
     - [x] Buildables
   - [x] Take Damage
-    - [ ] **Weapon**
+    - [x] Weapon
     - [x] Bomb
 - [x] PlayerMovement
   - [x] Walk

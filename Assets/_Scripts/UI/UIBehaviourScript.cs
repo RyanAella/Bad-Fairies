@@ -24,7 +24,7 @@ namespace _Scripts.UI
             stats.text = "Life Points: " + playerStats.CurrentHealth;
 
             // If BuildMode is active
-            if (playerController.GetCurrentPlayerMode() == 1)
+            if (playerController.GetPlayerMode() == PlayerController.PlayerMode.BuildMode)
             {
                 keyCode.text = "Exit Build Mode with \"Esc\"";
                 lineOne.enabled = true;
