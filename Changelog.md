@@ -1,6 +1,12 @@
 ﻿# Changelog
 
 
+## [0.17.0] - 2022-11-23
+## Added
+- Weapons
+  - visual effect when shooting
+
+
 ## [0.16.0] - 2022-11-22
 ## Added
 - 2 different Weapons
