@@ -31,10 +31,10 @@ namespace _Scripts.Player
             // if player in default mode enable weapons
             if (player.GetComponent<PlayerController>().GetPlayerMode() == PlayerController.PlayerMode.Default)
             {
-                // If Fire1 is pressed and next time to fire matches then fire
 
                 if (fullAuto)
                 {
+                    // If Fire1 is pressed and next time to fire matches then fire
                     if (Input.GetButton("Fire1") && Time.time >= _nextTimeToFire)
                     {
                         _nextTimeToFire = Time.time + 1f / fireRate;
@@ -43,6 +43,7 @@ namespace _Scripts.Player
                 }
                 else
                 {
+                    // If Fire1 is pressed and next time to fire matches then fire
                     if (Input.GetButtonDown("Fire1") && Time.time >= _nextTimeToFire)
                     {
                         _nextTimeToFire = Time.time + 1f / fireRate;
@@ -69,11 +70,6 @@ namespace _Scripts.Player
             RaycastHit hit;
             if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range, layerMask))
             {
-                //var pos = new Vector3(transform.position.x, transform.position.y, transform.position.z - 1f);
-
-                // Instantiate the explosion at the weapon position
-                //_shotInstance = Instantiate(shotPrefab, pos, Quaternion.identity);
-
                 // If a building is hit
                 if (hit.transform.gameObject.CompareTag("Buildable"))
                 {
@@ -82,11 +78,9 @@ namespace _Scripts.Player
                 }
 
                 // If a Bot (an enemy) is hit
-                var enemy = hit.transform.GetComponent<BotController>();
-
-                if (enemy != null)
+                if (hit.transform.GetComponent<BotController>() != null)
                 {
-                    enemy.TakeDamage(_damage);
+                    hit.transform.GetComponent<BotController>().TakeDamage(_damage);
                 }
             }
         }
