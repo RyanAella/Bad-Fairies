@@ -1,6 +1,12 @@
 ﻿# Changelog
 
 
+## [0.18.0] - 2022-11-25
+## Added
+- Bugfixes
+- Cleanup
+
+
 ## [0.17.0] - 2022-11-23
 ## Added
 - Weapons

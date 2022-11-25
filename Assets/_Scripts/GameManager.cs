@@ -2,6 +2,7 @@ using _Scripts.Bots;
 using _Scripts.Player;
 using _Scripts.UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace _Scripts
 {
@@ -9,28 +10,25 @@ namespace _Scripts
     {
         [SerializeField] private GameObject bot;
         [SerializeField] private GameObject player;
-        [SerializeField] private Canvas victoryScreen;
+        [SerializeField] private Canvas pauseScreen;
+        [SerializeField] private Canvas ingameScreen;
 
-        private GameObject _newBot;
-        private Vector3 _spawnPosition;
+        public static bool _gamePaused;
 
-        private int _randomSpawnLocation;
-        private float _randomXPosition, _randomZPosition;
-
-        public static GameManager instance { get; private set; }
+        public static GameManager Instance { get; private set; }
 
         void Awake()
         {
-            if (instance != null && instance != this)
+            if (Instance != null && Instance != this)
             {
                 Destroy(this);
             }
             else
             {
-                instance = this;
+                Instance = this;
             }
-            // victoryScreen.enabled = false;
-            // camera.SetActive(false);
+
+            _gamePaused = false;
         }
 
         private void Start()
@@ -40,16 +38,45 @@ namespace _Scripts
 
         }
 
-        // private void Update()
-        // {
-        //     if (BotController.GetBotCounter() == 0)
-        //     {
-        //         WinOrLoose(true);
-        //     }
-        //     if (player.gameObject.GetComponent<PlayerController>().Stats.CurrentHealth <= 0)
-        //     {
-        //         WinOrLoose(false);
-        //     
-        // }
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                PauseGame();
+            }
+        }
+
+        public void PauseGame()
+        {
+            if (!_gamePaused)
+            {
+                // pause game
+                Time.timeScale = 0;
+                pauseScreen.enabled = true;
+                ingameScreen.enabled = false;
+
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+
+                _gamePaused = true;
+            }
+            else
+            {
+                // resume game
+                Time.timeScale = 1;
+                pauseScreen.enabled = false;
+                ingameScreen.enabled = true;
+
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+
+                _gamePaused = false;
+            }
+        }
+
+        public void ExitGame()
+        {
+            Application.Quit();
+        }
     }
 }

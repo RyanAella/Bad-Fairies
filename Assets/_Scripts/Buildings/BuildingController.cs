@@ -8,11 +8,7 @@ namespace _Scripts.Buildings
         [SerializeField] private int buildingDistance = 15;
 
         private RaycastHit _hit;
-        private Ray _ray;
 
-        //private Grid _grid;
-
-        //private GameObject _currentBuildable;
         private GameObject _frameContainer;
         private GameObject _buildable;
         private GameObject _frame;
@@ -21,8 +17,6 @@ namespace _Scripts.Buildings
 
         private bool _vectorSet;
         public bool buildingSelected = false;
-
-        //private float _mouseWheelRotation;
 
         public GameObject floor;
         public GameObject ramp;
@@ -35,11 +29,14 @@ namespace _Scripts.Buildings
 
         private void Update()
         {
-            if (GetComponent<PlayerController>().GetPlayerMode() == PlayerController.PlayerMode.BuildMode)
+            if (!GameManager._gamePaused)
             {
-                ChooseBuildable();
+                if (GetComponent<PlayerController>().GetPlayerMode() == PlayerController.PlayerMode.BuildMode)
+                {
+                    ChooseBuildable();
 
-                Build();
+                    Build();
+                }
             }
         }
 
@@ -171,12 +168,10 @@ namespace _Scripts.Buildings
 
         private void Build()
         {
-            //_ray = Camera.main!.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-
-            // If the Ray "hits" an object    //(_ray, out _hit))
+            // If the Ray "hits" an object
             if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out _hit))
             {
-                // zu weit weg
+                // Too far away
                 if (_hit.distance > buildingDistance)
                 {
                     Destroy(_frameContainer);
@@ -193,7 +188,7 @@ namespace _Scripts.Buildings
                         _frameContainer = Instantiate(_frame, vector, transform.rotation);
                         _frameVector = vector;
                     }
-                    
+
                     _vectorSet = true;
                 }
 
@@ -243,10 +238,10 @@ namespace _Scripts.Buildings
                         {
                             container = Instantiate(_buildable, hitGameObject.transform.position,
                                 hitGameObject.transform.rotation);
-                            if (!_hit.collider.gameObject.transform.parent.gameObject.name.Equals("Floor"))
-                            {
-                                container.transform.Rotate(0, 180, 0);
-                            }
+                            //if (!_hit.collider.gameObject.transform.parent.gameObject.name.Equals("Floor"))
+                            //{
+                            //    //container.transform.Rotate(0, 180, 0);
+                            //}
                             container.transform.SetParent(hitGameObject.transform.parent);
                         }
                         // If current Mode is Ramp Mode
@@ -257,12 +252,11 @@ namespace _Scripts.Buildings
                             if (_hit.collider.gameObject.transform.parent.gameObject.name.Equals("Ramp"))
                             {
                                 container.transform.Rotate(0, 180, 0);
-
-                            } else
-                            {
-                                container.transform.Rotate(0, 0, 180);
-                                //container.transform.Translate(1, 0, 0);
                             }
+                            //else
+                            //{
+                            //    //container.transform.Rotate(0, 0, 180);
+                            //}
                             container.transform.SetParent(hitGameObject.transform.parent);
                         }
                         // If current Mode is Wall Mode

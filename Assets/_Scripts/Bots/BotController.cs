@@ -52,15 +52,12 @@ namespace _Scripts.Bots
 
         private static int _botCounter;
 
-        public Material water; // invisible
-
         void Awake()
         {
             _botCounter++;
             random = new System.Random();
         }
 
-        // Start is called before the first frame update
         void Start()
         {
             _animator = GetComponent<Animator>();
@@ -79,38 +76,39 @@ namespace _Scripts.Bots
             _isDyingHash = Animator.StringToHash("dying");
             _isGettingHitHash = Animator.StringToHash("getHit");
 
-            //_stats = new BotStats(50, 50, 10, 0);
             m_stats = GetComponent(typeof(Stats)) as Stats;
         }
 
-        // Update is called once per frame
         void Update()
         {
-            UpdateBotMode();
-
-            _animator.SetBool(_isAttackingHash, false);
-
-            _destination = transform.position;
-
-            Debug.Log(_mode);
-
-            switch (_mode)
+            if (!GameManager._gamePaused)
             {
-                case BotMode.Default:
-                    Idling();
-                    break;
-                case BotMode.SearchEnemy:
-                    Search();
-                    break;
-                case BotMode.ChaseEnemy:
-                    Chase();
-                    break;
-                case BotMode.AttackEnemy:
-                    Attack();
-                    break;
-                case BotMode.Die:
-                    Die();
-                    break;
+                UpdateBotMode();
+
+                _animator.SetBool(_isAttackingHash, false);
+
+                _destination = transform.position;
+
+                Debug.Log(_mode);
+
+                switch (_mode)
+                {
+                    case BotMode.Default:
+                        Idling();
+                        break;
+                    case BotMode.SearchEnemy:
+                        Search();
+                        break;
+                    case BotMode.ChaseEnemy:
+                        Chase();
+                        break;
+                    case BotMode.AttackEnemy:
+                        Attack();
+                        break;
+                    case BotMode.Die:
+                        Die();
+                        break;
+                }
             }
         }
 
@@ -126,7 +124,6 @@ namespace _Scripts.Bots
         private void UpdateBotMode()
         {
             var pos = transform.position;
-            // _animator.SetBool(_isAttackingHash, false);
 
             _mode = BotMode.Default;
 
@@ -155,22 +152,9 @@ namespace _Scripts.Bots
 
                     if (angleToPlayer is >= -60 and <= 60) // 120° FOV 
                     {
-                        Debug.Log("Player in sight!");
                         _mode = BotMode.ChaseEnemy;
                         return;
                     }
-                    // if (col.CompareTag("Player"))
-                    // {
-                    //     var targetDir = col.transform.position - pos;
-                    //     var angleToPlayer = (Vector3.Angle(targetDir, transform.forward));
-
-                    //     if (angleToPlayer is >= -60 and <= 60) // 120° FOV 
-                    //     {
-                    //         Debug.Log("Player in sight!");
-                    //         _mode = BotMode.ChaseEnemy;
-                    //         return;
-                    //     }
-                    // }
                 }
             }
 
@@ -196,9 +180,6 @@ namespace _Scripts.Bots
          */
         private bool DestinationReached()
         {
-            // var distance = Vector3.Distance(transform.position, _destination);
-            // Debug.Log("Distance is: " + distance + " , _stoppingDistance is: " + _stoppingDistance);
-            // return distance <= _stoppingDistance;
             return _destination == transform.position;
         }
 
@@ -209,11 +190,7 @@ namespace _Scripts.Bots
          */
         private void Idling()
         {
-            // Debug.Log("Bot is in default mode");
             _animator.SetTrigger(_isIdlingHash);
-            // _animator.SetBool(isAttackingHash, false);
-            // InvokeRepeating("Patrol", 10f, 30f);
-            // gameObject.GetComponent<Patrol>();
         }
 
         private void Search()
@@ -233,11 +210,13 @@ namespace _Scripts.Bots
                     {
                         Move(_destination);
                     }
+                    // If destination not yet reached and nothing in searchRadius
                     else if (!DestinationReached() && !Physics.CheckSphere(pos, searchRadius, mask))
                     {
                         _animator.SetTrigger(_isWalkingHash);
                         Move(_destination);
                     }
+                    // If destination not yet reached and something in searchRadius
                     else if (!DestinationReached() && Physics.CheckSphere(pos, searchRadius, player))
                     {
                         _animator.SetTrigger(_isWalkingHash);
@@ -253,9 +232,7 @@ namespace _Scripts.Bots
 
         private void Chase()
         {
-            // Debug.Log("Bot is in chase mode");
             _animator.SetTrigger(_isRunningHash);
-            // Move(_target.position);
 
             var pos = transform.position;
             Collider[] chase = Physics.OverlapSphere(pos, chaseRadius, mask);
@@ -284,12 +261,12 @@ namespace _Scripts.Bots
                 /* 
                      may keep facing target while playing the animation
                 */
+                // FaceTarget();
             }
         }
 
         private void Die()
         {
-            // Debug.Log("Bot is in die mode");
             if (!_animator.GetCurrentAnimatorStateInfo(0).IsName("Dying"))
             {
                 _animator.SetTrigger(_isDyingHash);
@@ -335,13 +312,6 @@ namespace _Scripts.Bots
         //     Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
         //     transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
         // }
-
-        private void FaceTarget(GameObject col)
-        {
-            Vector3 direction = (col.transform.position - transform.position).normalized;
-            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
-        }
 
         /**
          * Draws Gizmos in Editor.

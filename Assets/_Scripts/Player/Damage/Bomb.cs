@@ -38,7 +38,6 @@ namespace _Scripts
 
                 // Get the damage multiplier depending on the distance
                 var dmgMultiplier = Mathf.InverseLerp(explosionRadius, 0.0f, dist);
-                //Debug.Log("dmg multiplier: " + dmgMultiplier);
 
                 // Multiply the explosionForce/explosionDamage with the damage multiplier
                 var force = explosionForce * dmgMultiplier;
@@ -50,13 +49,11 @@ namespace _Scripts
                 // If the target has a Rigidbody
                 if (targetRigidbody != null)
                 {
-                    //Debug.Log("Bomb aplies force");
                     targetRigidbody.AddExplosionForce(force, pos, explosionRadius, 1, ForceMode.Impulse);
                 }
                 // If the target has life
                 if (targetStats != null)
                 {
-                    //Debug.Log("Bomb does damage");
                     targetStats.TakeDamage((int)dmg);
                 }
             }

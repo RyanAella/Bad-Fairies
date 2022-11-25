@@ -1,3 +1,4 @@
+using _Scripts;
 using _Scripts.Bots;
 using System.Collections;
 using System.Collections.Generic;
@@ -30,27 +31,30 @@ public class BotFactory : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (BotController.GetBotCounter() < maxBotCount)
+        if (!GameManager._gamePaused)
         {
-            // not all bots have been spawned yet
-            if (botList.Count < maxIngameBotCount)
+            if (BotController.GetBotCounter() < maxBotCount)
             {
-                // increment index by 1
-                locationIndex++;
+                // not all bots have been spawned yet
+                if (botList.Count < maxIngameBotCount)
+                {
+                    // increment index by 1
+                    locationIndex++;
 
-                //Debug.Log(spawnLocations[locationIndex].name);
+                    //Debug.Log(spawnLocations[locationIndex].name);
 
-                // spawn bots
-                var spawnPos = spawnLocations[locationIndex].position;
-                SpawnBot(spawnPos);
+                    // spawn bots
+                    var spawnPos = spawnLocations[locationIndex].position;
+                    SpawnBot(spawnPos);
 
-                // if last location reached reset to -1
-                if (locationIndex == spawnLocations.Count - 1) locationIndex = -1;
+                    // if last location reached reset to -1
+                    if (locationIndex == spawnLocations.Count - 1) locationIndex = -1;
+                }
             }
-        }
-        else
-        {
-            // all bots have been spawned
+            else
+            {
+                // all bots have been spawned
+            }
         }
     }
 

@@ -11,13 +11,15 @@ namespace _Scripts.Buildings
 
         public Buildable bc;
 
-        // Update is called once per frame
         void Update()
         {
-            // If the player looks at the frame the color is set to visible
-            GetComponent<Renderer>().material = tracked ? frame : cutout;
+            if (!GameManager._gamePaused)
+            {
+                // If the player looks at the frame the color is set to visible
+                GetComponent<Renderer>().material = tracked ? frame : cutout;
 
-            tracked = false;
+                tracked = false;
+            }
         }
     }
 }

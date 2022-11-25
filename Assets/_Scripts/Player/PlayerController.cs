@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace _Scripts.Player
 {
@@ -38,19 +39,22 @@ namespace _Scripts.Player
 
         private void Update()
         {
-            UpdatePlayerMode();
-
-            switch (_mode)
+            if (!GameManager._gamePaused)
             {
-                case PlayerMode.Default:
-                    // Default();
-                    break;
-                case PlayerMode.BuildMode:
-                    // Building();
-                    break;
-                case PlayerMode.Die:
-                    Die();
-                    break;
+                UpdatePlayerMode();
+
+                switch (_mode)
+                {
+                    case PlayerMode.Default:
+                        // Default();
+                        break;
+                    case PlayerMode.BuildMode:
+                        // Building();
+                        break;
+                    case PlayerMode.Die:
+                        Die();
+                        break;
+                }
             }
         }
 
@@ -76,7 +80,7 @@ namespace _Scripts.Player
                 _mode = PlayerMode.Default;
             }
 
-            // If player is in Default Mode and B is pressed
+            // If player is in Default Mode and B is pressed, activate BuildMode
             if (_mode == PlayerMode.Default && (!_buildingActive && Input.GetKeyDown(KeyCode.B)))
             {
                 _mode = PlayerMode.BuildMode;
@@ -84,7 +88,7 @@ namespace _Scripts.Player
                 return;
             }
 
-            // If Build Mode is active and B is pressed
+            // If Build Mode is active and B is pressed, activate Default Mode
             if (_mode == PlayerMode.BuildMode && (_buildingActive && Input.GetKeyDown(KeyCode.B)))
             {
                 _mode = PlayerMode.Default;
