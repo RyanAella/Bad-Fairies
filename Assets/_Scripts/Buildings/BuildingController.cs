@@ -238,10 +238,10 @@ namespace _Scripts.Buildings
                         {
                             container = Instantiate(_buildable, hitGameObject.transform.position,
                                 hitGameObject.transform.rotation);
-                            //if (!_hit.collider.gameObject.transform.parent.gameObject.name.Equals("Floor"))
-                            //{
-                            //    //container.transform.Rotate(0, 180, 0);
-                            //}
+                            if (!_hit.collider.gameObject.transform.parent.gameObject.name.Equals("Floor"))
+                            {
+                                container.transform.Rotate(180, 0, 0);
+                            }
                             container.transform.SetParent(hitGameObject.transform.parent);
                         }
                         // If current Mode is Ramp Mode
@@ -251,12 +251,12 @@ namespace _Scripts.Buildings
                                 hitGameObject.transform.rotation);
                             if (_hit.collider.gameObject.transform.parent.gameObject.name.Equals("Ramp"))
                             {
-                                container.transform.Rotate(0, 180, 0);
+                                //container.transform.Rotate(0, 180, 0);
                             }
-                            //else
-                            //{
-                            //    //container.transform.Rotate(0, 0, 180);
-                            //}
+                            else
+                            {
+                                container.transform.Rotate(180, 0, 0);
+                            }
                             container.transform.SetParent(hitGameObject.transform.parent);
                         }
                         // If current Mode is Wall Mode
