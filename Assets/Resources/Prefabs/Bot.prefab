@@ -2128,8 +2128,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 642cf0a25745a1a4196d06ea41a1af33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  searchRadius: 10
-  chaseRadius: 5
+  searchRadius: 50
+  chaseRadius: 25
   attackRadius: 1.35
   mask:
     serializedVersion: 2
@@ -2140,7 +2140,6 @@ MonoBehaviour:
   stopMargin: 0.1
   attackIndexLow: 0
   attackIndexHigh: 3
-  water: {fileID: 2100000, guid: d5ea3d6a8d6ac934c9fe3b7ac9d63c7a, type: 2}
 --- !u!114 &2094377445648703270
 MonoBehaviour:
   m_ObjectHideFlags: 0
