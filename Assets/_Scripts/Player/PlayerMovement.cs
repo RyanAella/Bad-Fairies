@@ -4,8 +4,8 @@ namespace _Scripts.Player
 {
     public class PlayerMovement : MonoBehaviour
     {
-        [SerializeField] private float walkingSpeed = 12f;
-        [SerializeField] private float runningSpeed = 24f;
+        [SerializeField] private float walkingSpeed = 6f;
+        [SerializeField] private float runningSpeed = 12f;
         [SerializeField] private float jumpHeight = 3f;
 
         [SerializeField] private float gravityValue = -9.81f;
@@ -30,7 +30,7 @@ namespace _Scripts.Player
 
                 // Check the player grounded state and set the slope limit
                 _isGrounded = _controller.isGrounded;
-                _controller.slopeLimit = 50;
+                //_controller.slopeLimit = 50;
 
                 // If the player is grounded
                 if (_isGrounded && _playerVelocity.y < 0)
@@ -40,7 +40,7 @@ namespace _Scripts.Player
 
                 var xAxis = Input.GetAxis("Horizontal");
                 var zAxis = Input.GetAxis("Vertical");
-                var move = transform.right * xAxis + transform.forward * zAxis;
+                var moveDir = transform.right * xAxis + transform.forward * zAxis;
 
                 // Player is grounded and left shift is pressed and player is in Default Mode
                 if (_isGrounded && Input.GetKey(KeyCode.LeftShift) && playerMode == PlayerController.PlayerMode.Default)
@@ -52,7 +52,7 @@ namespace _Scripts.Player
                     _currentSpeed = walkingSpeed;
                 }
 
-                _controller.Move(_currentSpeed * Time.deltaTime * move);
+                _controller.Move(_currentSpeed * Time.deltaTime * moveDir);
 
                 // Changes the height position of the player
                 if (Input.GetButtonDown("Jump") && _isGrounded)

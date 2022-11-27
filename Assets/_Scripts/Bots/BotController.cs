@@ -89,8 +89,6 @@ namespace _Scripts.Bots
 
                 _destination = transform.position;
 
-                Debug.Log(_mode);
-
                 switch (_mode)
                 {
                     case BotMode.Default:
@@ -251,8 +249,6 @@ namespace _Scripts.Bots
             {
                 // prepare attack animation to be used by randomly choosing a attackIndex
                 var attackIndex = random.Next(attackIndexLow, attackIndexHigh);
-
-                Debug.Log("Attack Index: " + attackIndex);
 
                 // set attackIndex and enable attack animation
                 _animator.SetInteger(_attackIndexHash, attackIndex);

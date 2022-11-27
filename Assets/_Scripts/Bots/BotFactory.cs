@@ -41,8 +41,6 @@ public class BotFactory : MonoBehaviour
                     // increment index by 1
                     locationIndex++;
 
-                    //Debug.Log(spawnLocations[locationIndex].name);
-
                     // spawn bots
                     var spawnPos = spawnLocations[locationIndex].position;
                     SpawnBot(spawnPos);

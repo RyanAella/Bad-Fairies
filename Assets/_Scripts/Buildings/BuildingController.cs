@@ -52,7 +52,6 @@ namespace _Scripts.Buildings
                 // Set mode on 0 and activate floor
                 if (!buildingSelected)
                 {
-                    //Debug.Log("1 pressed");
                     mode = 0;
                     _buildable = floor;
                     _frame = floorFrame;
@@ -64,7 +63,6 @@ namespace _Scripts.Buildings
                 // Change the buidable to floor
                 else if (buildingSelected && mode != 0)
                 {
-                    //Debug.Log("1 pressed");
                     mode = 0;
                     _buildable = floor;
                     _frame = floorFrame;
@@ -92,7 +90,6 @@ namespace _Scripts.Buildings
                 // Set mode on 1 and activate ramp
                 if (!buildingSelected)
                 {
-                    //Debug.Log("2 pressed");
                     mode = 1;
                     _buildable = ramp;
                     _frame = rampFrame;
@@ -104,7 +101,6 @@ namespace _Scripts.Buildings
                 // Change the buidable to ramp
                 else if (buildingSelected && mode != 1)
                 {
-                    //Debug.Log("2 pressed");
                     mode = 1;
                     _buildable = ramp;
                     _frame = rampFrame;
@@ -132,7 +128,6 @@ namespace _Scripts.Buildings
                 // Set mode on 2 and activate wall
                 if (!buildingSelected)
                 {
-                    //Debug.Log("3 pressed");
                     mode = 2;
                     _buildable = wall;
                     _frame = wallFrame;
@@ -144,7 +139,6 @@ namespace _Scripts.Buildings
                 // Change the buidable to wall
                 else if (buildingSelected && mode != 2)
                 {
-                    //Debug.Log("3 pressed");
                     mode = 2;
                     _buildable = wall;
                     _frame = wallFrame;

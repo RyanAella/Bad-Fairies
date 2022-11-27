@@ -1,6 +1,13 @@
 ﻿# Changelog
 
 
+## [1.0.0] - 2022-11-27
+## Release
+
+## Added
+- Bufixes
+
+
 ## [0.18.0] - 2022-11-25
 ## Added
 - Bugfixes

@@ -18,10 +18,8 @@ namespace _Scripts
         {            
             if (CurrentHealth > 0)
             {
-                Debug.Log("Incomming damage is: " + incommingDamage);
                 // reduce damage by armor
                 var damage = incommingDamage - Armor;
-                Debug.Log("Total damage taken is: " + damage);
 
                 // check if damage is negativ or 0 if so set to one
                 if (damage <= 0) damage = 1;
